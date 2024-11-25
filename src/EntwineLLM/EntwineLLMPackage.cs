@@ -22,6 +22,7 @@ namespace EntwineLlm
         {
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await RequestRefactorCommand.InitializeAsync(this);
+            await GenerateTestsCommand.InitializeAsync(this);
         }
 
         #endregion

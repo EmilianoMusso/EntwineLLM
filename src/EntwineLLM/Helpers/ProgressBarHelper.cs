@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.Shell;
 
 namespace EntwineLlm.Helpers
 {
-    public class ProgressBarHelper
+    internal class ProgressBarHelper
     {
         private readonly IVsThreadedWaitDialogFactory _dialogFactory;
         private IVsThreadedWaitDialog2 _dialog;
@@ -29,8 +29,8 @@ namespace EntwineLlm.Helpers
                 szProgressText: null,
                 varStatusBmpAnim: null,
                 szStatusBarText: null,
-                fIsCancelable: false,
                 iDelayToShowDialog: 0,
+                fIsCancelable: false,
                 fShowMarqueeProgress: true);
         }
 

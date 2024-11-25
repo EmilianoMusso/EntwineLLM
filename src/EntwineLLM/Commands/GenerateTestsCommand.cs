@@ -1,16 +1,14 @@
 ﻿using EntwineLlm.Helpers;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.ComponentModel.Design;
-using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
 namespace EntwineLlm
 {
-    internal sealed class RequestRefactorCommand
+    internal sealed class GenerateTestsCommand
     {
-        public const int CommandId = 250;
+        public const int CommandId = 251;
 
         public static readonly Guid CommandSet = new Guid("714b6862-aad7-434e-8415-dd928555ba0e");
 
@@ -18,7 +16,7 @@ namespace EntwineLlm
 
         private static string _activeDocumentPath;
 
-        private RequestRefactorCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private GenerateTestsCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -28,14 +26,14 @@ namespace EntwineLlm
             commandService.AddCommand(menuItem);
         }
 
-        public static RequestRefactorCommand Instance { get; private set; }
+        public static GenerateTestsCommand Instance { get; private set; }
 
         public static async Task InitializeAsync(AsyncPackage package)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new RequestRefactorCommand(package, commandService);
+            Instance = new GenerateTestsCommand(package, commandService);
         }
 
         private void Execute(object sender, EventArgs e)
@@ -50,7 +48,7 @@ namespace EntwineLlm
 
             var methodCode = GetCurrentMethodCode();
             var refactoringHelper = new RefactoringHelper(package);
-            await refactoringHelper.RequestCodeSuggestionsAsync(methodCode, _activeDocumentPath, Enums.RequestedCodeType.Refactor);
+            await refactoringHelper.RequestCodeSuggestionsAsync(methodCode, _activeDocumentPath, Enums.RequestedCodeType.Test);
 
             progressBarHelper.StopDialog();
         }

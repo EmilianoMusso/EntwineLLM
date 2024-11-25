@@ -1,4 +1,5 @@
-﻿using EntwineLlm.Helpers;
+﻿using EntwineLlm.Enums;
+using EntwineLlm.Helpers;
 using EntwineLlm.Models;
 using Microsoft.VisualStudio.Shell;
 using Newtonsoft.Json.Linq;
@@ -10,28 +11,46 @@ using Task = System.Threading.Tasks.Task;
 
 namespace EntwineLlm
 {
-    public class RefactoringHelper
+    internal class RefactoringHelper
     {
         private readonly EntwineLlmOptions _options;
+        private readonly AsyncPackage _package;
 
         public RefactoringHelper(AsyncPackage package)
         {
+            _package = package;
             _options = package.GetDialogPage(typeof(EntwineLlmOptions)) as EntwineLlmOptions;
         }
 
-        public async Task RequestAndShowRefactoringSuggestionAsync(string methodCode, string activeDocumentPath)
+        public async Task RequestCodeSuggestionsAsync(
+            string methodCode,
+            string activeDocumentPath,
+            RequestedCodeType codeType)
         {
-            var suggestion = await GetOllamaRefactoringSuggestionAsync(methodCode);
+            var suggestion = await GetCodeSuggestionsAsync(methodCode, codeType);
             await ShowRefactoringSuggestionAsync(suggestion, activeDocumentPath);
         }
 
-        private async Task<string> GetOllamaRefactoringSuggestionAsync(string methodCode)
+        private async Task<string> GetCodeSuggestionsAsync(string methodCode, RequestedCodeType codeType)
         {
             using (var client = new HttpClient())
             {
                 client.Timeout = _options.LlmRequestTimeOut;
 
-                var prompt = PromptHelper.Generate(_options.LlmModel, methodCode);
+                var prompt = string.Empty;
+
+                switch (codeType)
+                {
+                    case RequestedCodeType.Refactor:
+                        prompt = PromptHelper.CreateForRefactor(_options.LlmModel, methodCode);
+                        break;
+                    case RequestedCodeType.Test:
+                        prompt = PromptHelper.CreateForTests(_options.LlmModel, methodCode);
+                        break;
+                    default:
+                        throw new ArgumentException("Invalid requested code type");
+                }
+
                 var content = new StringContent(prompt, Encoding.UTF8, "application/json");
 
                 try
@@ -53,9 +72,9 @@ namespace EntwineLlm
             }
         }
 
-        private static async Task ShowRefactoringSuggestionAsync(string suggestion, string activeDocumentPath)
+        private async Task ShowRefactoringSuggestionAsync(string suggestion, string activeDocumentPath)
         {
-            ToolWindowPane window = await RequestRefactorCommand.Instance.ShowToolWindowAsync();
+            ToolWindowPane window = await WindowHelper.ShowToolWindowAsync<RefactorSuggestionWindow>(_package);
             var control = (RefactorSuggestionWindowControl)window.Content;
             control.DisplaySuggestion(suggestion, activeDocumentPath);
         }

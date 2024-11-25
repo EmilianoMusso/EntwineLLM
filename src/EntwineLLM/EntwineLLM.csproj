@@ -49,11 +49,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\GenerateTestsCommand.cs" />
     <Compile Include="Commands\RequestRefactorCommand.cs" />
+    <Compile Include="Enums\RequestedCodeType.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\ProgressBarHelper.cs" />
     <Compile Include="Helpers\PromptHelper.cs" />
     <Compile Include="Helpers\RefactoringHelper.cs" />
+    <Compile Include="Helpers\WindowHelper.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

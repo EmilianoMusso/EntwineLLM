@@ -11,6 +11,12 @@
           <ButtonText>Ask EntwineLlm</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidEntwineLlmPackageCmdSet1" id="cmdGenerateUnitTests" priority="0x0100" type="Button">
+        <Parent guid="guidEntwineLlmPackageCmdSet1" id="MyMenuGroup" />
+        <Strings>
+          <ButtonText>Generate Unit Tests with EntwineLlm</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
     <Groups>
@@ -22,6 +28,7 @@
 
   <KeyBindings>
     <KeyBinding guid="guidEntwineLlmPackageCmdSet1" id="cmdidRequestRefactorCommandId" editor="guidTextEditor" key1="VK_F1" mod1="SHIFT" />
+    <KeyBinding guid="guidEntwineLlmPackageCmdSet1" id="cmdGenerateUnitTests" editor="guidTextEditor" key1="VK_F2" mod1="SHIFT" />
   </KeyBindings>
 
   <Symbols>
@@ -34,7 +41,8 @@
   
     <GuidSymbol value="{714b6862-aad7-434e-8415-dd928555ba0e}" name="guidEntwineLlmPackageCmdSet1">
       <IDSymbol value="4128" name="MyMenuGroup" />
-      <IDSymbol value="256" name="cmdidRequestRefactorCommandId" />
+      <IDSymbol value="250" name="cmdidRequestRefactorCommandId" />
+      <IDSymbol value="251" name="cmdGenerateUnitTests" />
     </GuidSymbol>
   
   </Symbols>
