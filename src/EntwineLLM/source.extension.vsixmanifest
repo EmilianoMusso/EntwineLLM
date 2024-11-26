@@ -3,7 +3,7 @@
     <Metadata>
         <Identity Id="EntwineLlm.77601dfd-d66f-405b-b3c4-c2e05497a5ca" Version="1.5" Language="en-US" Publisher="Emiliano Musso" />
         <DisplayName>EntwineLlm</DisplayName>
-        <Description xml:space="preserve">Retrieval augmented generation (RAG) for C# coding support</Description>
+        <Description xml:space="preserve">Retrieval augmented generation (RAG) for C# coding support (code writing, refactor, unit tests generation)</Description>
         <License>LICENSE.txt</License>
         <Icon>entwine-logo.ico</Icon>
         <PreviewImage>Resources\vs-entwine-suggestion.png</PreviewImage>
