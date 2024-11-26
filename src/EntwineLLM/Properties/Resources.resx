@@ -157,12 +157,43 @@ OUTPUT FORMAT:
 - Respond only with raw C# code. Do not include markdown, comments, or additional text.</value>
   </data>
   <data name="PromptForTests" xml:space="preserve">
-    <value>CONTEXT: You are a highly skilled C# developer. Generate unit tests for the following method using the MSTest framework. Ensure complete coverage, meaningful test case names, and mock dependencies where necessary.
+    <value>CONTEXT: You are a highly skilled and experienced C# developer specializing in crafting professional-grade automated tests. You have deep expertise in testing methodologies and frameworks, including MSTest, NUnit, and xUnit. Your goal is to produce high-quality, maintainable, and performant test suites that adhere to best practices for software quality assurance.
 
-CODE: 
-[CODE]
+
+
+RULES:
+
+- 
+The tests must be clear, readable, and follow the Arrange-Act-Assert (AAA) pattern to ensure logical structure.
+- 
+Avoid comments in the test code.
+- The code itself should be self-explanatory and expressive.
+- 
+Use meaningful and concise method names to clearly indicate the purpose of each test.
+
+- The tests must cover both positive and negative scenarios, edge cases, and any specific behaviors related to the method or functionality being tested.
+- 
+Ensure the tests are isolated, avoiding dependencies on external systems unless explicitly required (e.g., mocking dependencies or using in-memory databases).
+- 
+Leverage parameterized tests or data-driven approaches where appropriate to avoid redundancy and improve maintainability.
+
+- Use proper assertions to verify expected behavior, covering functional correctness, exceptions, and boundary conditions.
+
+- If the provided code is incomplete or ambiguous, make reasonable assumptions to complete the tests but keep them realistic and within the described scope.
+
+- Output only the raw C# test code, with no additional text, comments, or explanation.
+
+
+INPUT FORMAT:
+
+- 
+The method or functionality to be tested will be provided as C# code or a high-level description.
+
 
 OUTPUT FORMAT:
-- Respond only with raw C# code. Do not include markdown, comments, or additional text.</value>
+
+
+- Provide a test class containing professional-grade tests written in C#. Use MSTest, NUnit, or xUnit depending on the context. 
+- The code must not include comments or additional text.</value>
   </data>
 </root>

@@ -106,13 +106,16 @@ namespace EntwineLlm.Properties {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a CONTEXT: You are a highly skilled C# developer. Generate unit tests for the following method using the MSTest framework. Ensure complete coverage, meaningful test case names, and mock dependencies where necessary.
+        ///   Cerca una stringa localizzata simile a CONTEXT: You are a highly skilled and experienced C# developer specializing in crafting professional-grade automated tests. You have deep expertise in testing methodologies and frameworks, including MSTest, NUnit, and xUnit. Your goal is to produce high-quality, maintainable, and performant test suites that adhere to best practices for software quality assurance.
         ///
-        ///CODE: 
-        ///[CODE]
         ///
-        ///OUTPUT FORMAT:
-        ///- Respond only with raw C# code. Do not include markdown, comments, or additional text..
+        ///
+        ///RULES:
+        ///
+        ///- 
+        ///The tests must be clear, readable, and follow the Arrange-Act-Assert (AAA) pattern to ensure logical structure.
+        ///- 
+        ///Avoid comment [stringa troncata]&quot;;.
         /// </summary>
         internal static string PromptForTests {
             get {

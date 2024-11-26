@@ -18,14 +18,14 @@ namespace EntwineLlm.Helpers
             }
         }
 
-        public void StartIndeterminateDialog()
+        public void StartIndeterminateDialog(string message)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
             _dialogFactory.CreateInstance(out _dialog);
             _dialog?.StartWaitDialog(
                 szWaitCaption: "EntwineLLM",
-                szWaitMessage: "Waiting for LLM response",
+                szWaitMessage: message,
                 szProgressText: null,
                 varStatusBmpAnim: null,
                 szStatusBarText: null,
