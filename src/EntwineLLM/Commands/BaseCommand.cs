@@ -43,7 +43,7 @@ namespace EntwineLlm.Commands
 
         public async Task PerformRefactoringSuggestionAsync(RequestedCodeType codeType)
         {
-            var message = "Waiting for LLM response (" + Enum.GetName(typeof(RequestedCodeType), codeType) + ") ...";
+            var message = "Waiting for LLM response (task requested: " + Enum.GetName(typeof(RequestedCodeType), codeType) + ") ...";
             
             var progressBarHelper = new ProgressBarHelper(ServiceProvider.GlobalProvider);
             progressBarHelper.StartIndeterminateDialog(message);
