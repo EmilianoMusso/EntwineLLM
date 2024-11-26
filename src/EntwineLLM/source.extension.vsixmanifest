@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="EntwineLlm.77601dfd-d66f-405b-b3c4-c2e05497a5ca" Version="1.0" Language="en-US" Publisher="Emiliano Musso" />
+        <Identity Id="EntwineLlm.77601dfd-d66f-405b-b3c4-c2e05497a5ca" Version="1.5" Language="en-US" Publisher="Emiliano Musso" />
         <DisplayName>EntwineLlm</DisplayName>
         <Description xml:space="preserve">Retrieval augmented generation (RAG) for C# coding support</Description>
-        <Preview>true</Preview>
+        <License>LICENSE.txt</License>
+        <Icon>entwine-logo.ico</Icon>
+        <PreviewImage>Resources\vs-entwine-suggestion.png</PreviewImage>
+        <Tags>llm, rag, AI, llama, coding, assistant</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
