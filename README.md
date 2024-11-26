@@ -18,12 +18,14 @@ After installing the EntwineLLM extension, its configuration options will be ava
 ![image](./src/EntwineLLM/Resources/vs-entwine-options.png)
 
 #### Using the extension
-After installing the extension, the `Ask Entwine` command will be available in the Tools menu. By selecting a block of code or text related to the function you wish to create, the extension will call the LLM APIs available at the URL configured in the options. The extension will then present a window displaying the suggested code. If the user chooses to apply the suggestion, the new code will overwrite the originally selected text or code, seamlessly integrating the AI's assistance into the developer's workflow.
+After installing the extension, the `Ask Entwine` command will be available in the Tools menu. By selecting a block of code or text related to the function you wish to create, the extension will call the LLM APIs available at the URL configured in the options. The extension will then present a window displaying the suggested code. If the user chooses to apply the suggestion, the new code will overwrite the originally selected text or code, seamlessly integrating the AI's assistance into the developer's workflow. Instead, the `Generate Unit Tests with EntwineLlm` command can be used to generate unit tests for every path on a selected block of code or function. The same flow applies: the extension will query the LLM, showing results on a separated window.
 
 ![image](./src/EntwineLLM/Resources/vs-entwine-suggestion.png)
 
 #### How it works
 The prompt for this extension is designed to focus specifically on C# development within the Microsoft .NET ecosystem, including the full framework, .NET Core, and related technologies like LINQ, Entity Framework, and ASP.NET Core. It has a strict set of rules: requests unrelated to C# coding are rejected with a raw `return null;` statement. If the request involves refactoring code, it follows Clean Code principles, ensuring readability, maintainability, and performance, with no extra explanations or comments provided. For new code requests, the same principles apply, with the emphasis on modularity, testability, and high performance. All code is provided in raw C# format, following strict style guidelines (Allman-style braces, vertical slicing) with no comments or additional context
+
+![image](./src/EntwineLLM/Resources/vs-entwine-menu.png)
 
 #### Why Entwine?
 The name Entwine and its logo, resembling the helix of DNA, symbolize the union of two forces: the natural intelligence and skills of the developer, and the artificial intelligence provided by the LLM. Just as DNA represents the intricate intertwining of biological elements that form life, Entwine reflects the harmonious connection between human creativity and AI-driven assistance. This synergy allows developers to harness the power of LLMs, enhancing their coding process while retaining their unique problem-solving abilities, creating a seamless collaboration between human and machine.

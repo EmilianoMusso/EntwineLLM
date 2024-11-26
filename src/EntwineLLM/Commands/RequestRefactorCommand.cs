@@ -15,10 +15,7 @@ namespace EntwineLlm
             }
         }
 
-        public RequestRefactorCommand(AsyncPackage package)
-        {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
-        }
+        public RequestRefactorCommand(AsyncPackage package) : base(package) { }
 
         public void Execute(object sender, EventArgs e)
         {

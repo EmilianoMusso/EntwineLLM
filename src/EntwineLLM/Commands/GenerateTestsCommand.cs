@@ -15,10 +15,7 @@ namespace EntwineLlm
             }
         }
 
-        public GenerateTestsCommand(AsyncPackage package)
-        {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
-        }
+        public GenerateTestsCommand(AsyncPackage package) : base(package) { }
 
         public void Execute(object sender, EventArgs e)
         {

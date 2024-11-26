@@ -12,6 +12,11 @@ namespace EntwineLlm.Commands
 
         public string ActiveDocumentPath;
 
+        public BaseCommand(AsyncPackage package)
+        {
+            this.package = package ?? throw new ArgumentNullException(nameof(package));
+        }
+
         public string GetCurrentMethodCode()
         {
             ThreadHelper.ThrowIfNotOnUIThread();

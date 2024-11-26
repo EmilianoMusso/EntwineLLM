@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="entwine-logo.ico" />
+    <Content Include="Resources\vs-entwine-menu.png" />
     <Content Include="Resources\vs-entwine-options.png" />
     <Content Include="Resources\vs-entwine-suggestion.png" />
   </ItemGroup>
