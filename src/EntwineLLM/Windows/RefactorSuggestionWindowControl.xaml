@@ -5,72 +5,116 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
              mc:Ignorable="d"
-             d:DesignHeight="400" d:DesignWidth="600" Background="#1E1E1E">
+             d:DesignHeight="450" d:DesignWidth="650"
+             Background="#FF1F1F1F">
+    <UserControl.Resources>
+        <Style x:Key="ModernButton" TargetType="Button">
+            <Setter Property="Background" Value="#FF3A3A3A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                          CornerRadius="4"
+                          Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4A4A4A"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
-        <Label Content="Suggested code"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               FontSize="16"
-               Foreground="White"
-               Grid.Row="0"/>
 
-        <avalonEdit:TextEditor x:Name="SuggestionBox"
-                SyntaxHighlighting="C#"
-                ShowLineNumbers="True"
-                IsReadOnly="True"
-                FontFamily="Lucida Console"
-                FontSize="{Binding ElementName=ZoomSlider, Path=Value}"
-                VerticalScrollBarVisibility="Auto"
-                HorizontalScrollBarVisibility="Auto"
-                Margin="2,2,2,2"
-                Padding="2"
-                Grid.Row="1"/>
+        <Border Grid.Row="0" Background="#FF2C2C2C" Padding="15,0">
+            <TextBlock Text="Suggested Code" 
+                       FontSize="18" 
+                       Foreground="White" 
+                       VerticalAlignment="Center" 
+                       FontWeight="SemiBold"/>
+        </Border>
 
-        <DockPanel VerticalAlignment="Top" Grid.Row="2" LastChildFill="True">
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+        <Border Grid.Row="1" 
+                Background="#FF2A2A2A" 
+                Margin="10" 
+                CornerRadius="6" 
+                BorderThickness="1" 
+                BorderBrush="#FF3A3A3A">
+            <avalonEdit:TextEditor x:Name="SuggestionBox"
+                    SyntaxHighlighting="C#"
+                    ShowLineNumbers="True"
+                    IsReadOnly="True"
+                    FontFamily="Consolas"
+                    FontSize="{Binding ElementName=ZoomSlider, Path=Value}"
+                    VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Auto"
+                    Background="#FFDFDFDF"
+                    Margin="10">
+            </avalonEdit:TextEditor>
+        </Border>
+
+        <Grid Grid.Row="2" Background="#FF262626" Margin="0,5,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" 
+                        Orientation="Horizontal" 
+                        VerticalAlignment="Center" 
+                        Margin="15,0">
+                <TextBlock Text="Zoom:" 
+                           Foreground="White" 
+                           VerticalAlignment="Center" 
+                           Margin="0,0,10,0"/>
+                <Slider x:Name="ZoomSlider"
+                        Minimum="10"
+                        Maximum="30"
+                        Value="14"
+                        Width="200"
+                        TickFrequency="1"
+                        IsSnapToTickEnabled="True"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" 
+                        Orientation="Horizontal" 
+                        VerticalAlignment="Center" 
+                        Margin="0,0,15,0">
                 <Button Content="?"
+                    Style="{StaticResource ModernButton}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
-                    Margin="0,0,10,10"
-                    Padding="5"
-                    Width="30"
                     Click="btnAbout_Click"/>
-
-                <Button Content="Apply"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Margin="0,0,0,10"
-                    Padding="5"
-                    Width="120"
-                    Click="btnApply_Click"/>
-
-                <Button Content="Close"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Margin="10"
-                    Padding="5"
-                    Width="120"
-                    IsCancel="True"
-                    Click="btnClose_Click"/>
+                <Button Content="Save" 
+                        Style="{StaticResource ModernButton}"
+                        Width="100"
+                        Click="btnSave_Click"/>
+                <Button Content="Apply" 
+                        Style="{StaticResource ModernButton}"
+                        Width="100"
+                        Click="btnApply_Click"/>
+                <Button Content="Close" 
+                        Style="{StaticResource ModernButton}"
+                        Width="100"
+                        IsCancel="True"
+                        Click="btnClose_Click"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                <Label Content="Zoom:" VerticalAlignment="Center" Margin="5,0" Foreground="White"/>
-                <Slider x:Name="ZoomSlider"
-                    Minimum="10"
-                    Maximum="30"
-                    Value="14"
-                    TickFrequency="1"
-                    IsSnapToTickEnabled="True"
-                    Width="200"
-                    Margin="5,0" 
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Center"/>
-            </StackPanel>
-        </DockPanel>
+        </Grid>
     </Grid>
 </UserControl>

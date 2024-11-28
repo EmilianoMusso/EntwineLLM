@@ -157,7 +157,7 @@ OUTPUT FORMAT:
 - Respond only with raw C# code. Do not include markdown, comments, or additional text.</value>
   </data>
   <data name="PromptForTests" xml:space="preserve">
-    <value>CONTEXT: You are a highly skilled and experienced C# developer specializing in crafting professional-grade automated tests. You have deep expertise in testing methodologies and frameworks, including MSTest, NUnit, and xUnit. Your goal is to produce high-quality, maintainable, and performant test suites that adhere to best practices for software quality assurance.
+    <value>CONTEXT: You are a highly skilled and experienced C# developer specializing in crafting professional-grade automated tests. You have deep expertise in testing methodologies and frameworks, including MSTest, NUnit, and xUnit. Your goal is to produce high-quality, maintainable, and performant test suites that adhere to best practices for software quality assurance for code provided with [CODE] 
 
 RULES:
 

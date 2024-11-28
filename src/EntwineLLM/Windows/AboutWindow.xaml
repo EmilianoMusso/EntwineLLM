@@ -2,22 +2,96 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             Width="450" Height="200"
-             Background="#1E1E1E">
-    <StackPanel Margin="15">
-        <StackPanel Orientation="Horizontal">
-            <Image Source="pack://application:,,,/EntwineLLM;component/Resources/entwine-logo.jpg" Width="100" Height="100" VerticalAlignment="Top"></Image>
-            <StackPanel Orientation="Vertical">
-                <Label Foreground="White" FontSize="20" FontWeight="Bold">EntwineLLM</Label>
-                <Label Foreground="White" FontSize="12">LLM coding assistant extension for Visual Studio</Label>
-                <Label Foreground="White" FontSize="12">Created by Emiliano Musso</Label>
-                <TextBlock Margin="5">
-                    <Hyperlink Foreground="Aquamarine" NavigateUri="">http://github.com/EmilianoMusso</Hyperlink>
+             Width="500" Height="300"
+             Background="#FF1F1F1F">
+    <UserControl.Resources>
+        <Style x:Key="ModernButton" TargetType="Button">
+            <Setter Property="Background" Value="#FF3A3A3A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF4A4A4A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#FF2C2C2C" CornerRadius="6" Padding="15" Margin="0,0,0,15">
+            <TextBlock Text="About EntwineLLM" 
+                       FontSize="18" 
+                       Foreground="White" 
+                       HorizontalAlignment="Center" 
+                       FontWeight="SemiBold"/>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" 
+                    Width="120" 
+                    Height="120" 
+                    CornerRadius="10" 
+                    Margin="0,0,15,0" 
+                    BorderThickness="1" 
+                    BorderBrush="#FF3A3A3A">
+                <Image Source="pack://application:,,,/EntwineLLM;component/Resources/entwine-logo.jpg" 
+                       Stretch="Uniform" 
+                       Margin="10"/>
+            </Border>
+
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="EntwineLLM" 
+                           Foreground="White" 
+                           FontSize="22" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,5"/>
+                <TextBlock Text="LLM coding assistant extension for Visual Studio" 
+                           Foreground="#FFA0A0A0" 
+                           FontSize="14" 
+                           Margin="0,0,0,5"/>
+                <TextBlock Text="Created by Emiliano Musso" 
+                           Foreground="#FFA0A0A0" 
+                           FontSize="14" 
+                           Margin="0,0,0,10"/>
+                <TextBlock Margin="0,5,0,0">
+                    <Hyperlink Foreground="#FF4CAF50" 
+                               NavigateUri="https://github.com/EmilianoMusso">
+                        github.com/EmilianoMusso
+                    </Hyperlink>
                 </TextBlock>
             </StackPanel>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,28,0,0">
-            <Button Width="120" Height="28" IsCancel="True">Close</Button>
-        </StackPanel>
-    </StackPanel>
+        </Grid>
+        
+        <Button Grid.Row="2" 
+                Content="Close" 
+                Style="{StaticResource ModernButton}"
+                Width="150"
+                Margin="0,15,0,0"
+                HorizontalAlignment="Center"
+                IsCancel="True"/>
+    </Grid>
 </UserControl>

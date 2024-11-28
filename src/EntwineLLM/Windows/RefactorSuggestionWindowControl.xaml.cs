@@ -1,10 +1,13 @@
-﻿using EnvDTE;
+﻿using EntwineLlm.Helpers;
+using EnvDTE;
+using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media;
-using TextRange = System.Windows.Documents.TextRange;
 using TextSelection = EnvDTE.TextSelection;
 
 namespace EntwineLlm
@@ -43,21 +46,20 @@ namespace EntwineLlm
             }
         }
 
-        private void btnApply_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void btnApply_Click(object sender, RoutedEventArgs e)
         {
-            string suggestionText = SuggestionBox.Text;
-            ReplaceSelectedTextInIDE(suggestionText);
+            ReplaceSelectedTextInIDE(SuggestionBox.Text);
 
             btnClose_Click(sender, e);
         }
 
-        private void btnClose_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             var parentWindow = System.Windows.Window.GetWindow(this);
             parentWindow?.Close();
         }
 
-        private void btnAbout_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
             var aboutWindow = new AboutWindow();
             var window = new System.Windows.Window
@@ -65,13 +67,54 @@ namespace EntwineLlm
                 Title = "About EntwineLLM",
                 Background = Brushes.Black,
                 Content = aboutWindow,
-                Width = 450,
-                Height = 250,
+                Width = 500,
+                Height = 330,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 Owner = Application.Current.MainWindow
             };
 
             window.ShowDialog();
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            _ = SaveGeneratedCodeAsync(SuggestionBox.Text);
+        }
+
+        private static string GenerateFileName(string baseName)
+        {
+            return $"{baseName}_{DateTime.Now:yyyyMMddHHmmss}.cs";
+        }
+
+        private static void SaveCodeToFile(string code, string filePath)
+        {
+            File.WriteAllText(filePath, code);
+        }
+
+        private static async Task SaveGeneratedCodeAsync(string code)
+        {
+            const string baseName = "SuggestedCode";
+            var fileName = GenerateFileName(baseName);
+            var projectDirectory = GetActiveProjectDirectory();
+            var filePath = Path.Combine(projectDirectory, fileName);
+
+            SaveCodeToFile(code, filePath);
+
+            ProjectHelper.AddFileToSolution(filePath);
+
+            await Task.Yield();
+        }
+
+        private static string GetActiveProjectDirectory()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            var dte = Package.GetGlobalService(typeof(DTE)) as DTE2;
+            var project = ProjectHelper.GetActiveProject(dte);
+
+            return project == null ?
+                throw new InvalidOperationException("No active project found.")
+                : Path.GetDirectoryName(project.FullName);
         }
     }
 }
