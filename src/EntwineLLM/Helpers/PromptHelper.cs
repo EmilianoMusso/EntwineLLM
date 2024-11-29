@@ -4,6 +4,12 @@ namespace EntwineLlm.Helpers
 {
     internal static class PromptHelper
     {
+        public static string CreateForManualRequest(string model, string userCode, string prompt)
+        {
+            var promptText = PreparePrompt(prompt);
+            return ReplacePlaceholders(promptText, model, userCode);
+        }
+
         public static string CreateForRefactor(string model, string userCode)
         {
             var promptText = PreparePrompt(Properties.Resources.PromptForRefactor);

@@ -20,5 +20,18 @@ namespace EntwineLlm.Helpers
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
             return window;
         }
+
+        public static void MsgBox(string message)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            VsShellUtilities.ShowMessageBox(
+                ServiceProvider.GlobalProvider,
+                message,
+                "EntwineLLM - Warning",
+                OLEMSGICON.OLEMSGICON_WARNING,
+                OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+        }
     }
 }

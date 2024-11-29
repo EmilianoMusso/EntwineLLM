@@ -25,13 +25,14 @@ namespace EntwineLlm
         public async Task RequestCodeSuggestionsAsync(
             string methodCode,
             string activeDocumentPath,
-            RequestedCodeType codeType)
+            RequestedCodeType codeType,
+            string manualPrompt = "")
         {
-            var suggestion = await GetCodeSuggestionsAsync(methodCode, codeType);
+            var suggestion = await GetCodeSuggestionsAsync(methodCode, codeType, manualPrompt);
             await ShowRefactoringSuggestionAsync(suggestion, activeDocumentPath);
         }
 
-        private async Task<string> GetCodeSuggestionsAsync(string methodCode, RequestedCodeType codeType)
+        private async Task<string> GetCodeSuggestionsAsync(string methodCode, RequestedCodeType codeType, string manualPrompt)
         {
             using (var client = new HttpClient())
             {
@@ -41,6 +42,9 @@ namespace EntwineLlm
 
                 switch (codeType)
                 {
+                    case RequestedCodeType.Manual:
+                        prompt = PromptHelper.CreateForManualRequest(_options.LlmModel, methodCode, manualPrompt);
+                        break;
                     case RequestedCodeType.Refactor:
                         prompt = PromptHelper.CreateForRefactor(_options.LlmModel, methodCode);
                         break;

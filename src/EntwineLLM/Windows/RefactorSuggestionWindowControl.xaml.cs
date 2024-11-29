@@ -116,5 +116,23 @@ namespace EntwineLlm
                 throw new InvalidOperationException("No active project found.")
                 : Path.GetDirectoryName(project.FullName);
         }
+
+        private void btnFollowUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(FollowupBox.Text))
+            {
+                WindowHelper.MsgBox("A follow-up prompt must be set to proceed");
+                return;
+            }
+
+            var manualPromptCommand = new ManualPromptCommand(EntwineLlmPackage.Instance)
+            {
+                ManualPromptTextBox = FollowupBox
+            };
+
+            manualPromptCommand.Execute(sender, e);
+
+            FollowupBox.Text = "";
+        }
     }
 }

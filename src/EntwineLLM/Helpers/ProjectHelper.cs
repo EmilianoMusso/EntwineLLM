@@ -11,7 +11,7 @@ namespace EntwineLlm.Helpers
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var dte = Package.GetGlobalService(typeof(DTE)) as DTE2 
+            var dte = Package.GetGlobalService(typeof(DTE)) as DTE2
                 ?? throw new InvalidOperationException("DTE not available");
 
             var activeProject = GetActiveProject(dte);

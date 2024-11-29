@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="650"
+             d:DesignHeight="500" d:DesignWidth="650"
              Background="#FF1F1F1F">
     <UserControl.Resources>
         <Style x:Key="ModernButton" TargetType="Button">
@@ -39,6 +39,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
 
@@ -69,7 +70,31 @@
             </avalonEdit:TextEditor>
         </Border>
 
-        <Grid Grid.Row="2" Background="#FF262626" Margin="0,5,0,0">
+        <Border Grid.Row="2" 
+            Background="#FF2A2A2A" 
+            Margin="5,0,5,0" 
+            CornerRadius="6" 
+            BorderThickness="1" 
+            BorderBrush="#FF3A3A3A">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="40" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Foreground="White" Margin="0,5,0,5">Follow up</Label>
+                <TextBox Grid.Column="1" x:Name="FollowupBox" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Margin="0,5,0,5"/>
+                <Button Grid.Column="2" Content="↓" 
+                    x:Name="btnFollowUp"
+                    Style="{StaticResource ModernButton}"
+                    Width="30"
+                    Padding="0"
+                    Margin="0,5,0,5"
+                    Click="btnFollowUp_Click" ToolTip="Ask Entwine for a follow-up on code"/>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="3" Background="#FF262626" Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -104,11 +129,13 @@
                 <Button Content="Save" 
                         Style="{StaticResource ModernButton}"
                         Width="100"
-                        Click="btnSave_Click"/>
+                        Click="btnSave_Click"
+                        ToolTip="Save code to a new file"/>
                 <Button Content="Apply" 
                         Style="{StaticResource ModernButton}"
                         Width="100"
-                        Click="btnApply_Click"/>
+                        Click="btnApply_Click"
+                        ToolTip="Apply code to current selection"/>
                 <Button Content="Close" 
                         Style="{StaticResource ModernButton}"
                         Width="100"
