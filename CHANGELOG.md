@@ -1,3 +1,10 @@
+### v1.6.0 Follow-up prompt
+---
+- Visual style revisited
+- General refactor
+- Implemented command to save the generated code in a `.cs` file, added to the current project
+- Implemented follow-up prompt to better define LLM response (a91501c)
+
 ### v1.5.0 Unit tests generation
 ---
 - General refactor; implemented unit tests generation (fc8af9b)
