@@ -65,6 +65,7 @@
     <Compile Include="Helpers\PromptHelper.cs" />
     <Compile Include="Helpers\RefactoringHelper.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
+    <Compile Include="Models\LlmRequest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

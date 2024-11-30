@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
@@ -65,9 +66,16 @@ namespace EntwineLlm
                     var responseContent = await response.Content.ReadAsStringAsync();
                     var code = JObject.Parse(responseContent)["message"]["content"].ToString();
 
-                    return code
-                        .Replace("```csharp", "")
-                        .Replace("```", "");
+                    var pattern = @"```csharp(.*?)```";
+                    var matches = Regex.Matches(code, pattern, RegexOptions.Singleline);
+
+                    var extractedCode = new StringBuilder();
+                    foreach (Match match in matches)
+                    {
+                        extractedCode.AppendLine(match.Groups[1].Value.Trim());
+                    }
+
+                    return extractedCode.ToString();
                 }
                 catch (Exception ex)
                 {

@@ -1,4 +1,6 @@
 ﻿using EntwineLlm.Extensions;
+using EntwineLlm.Models;
+using Newtonsoft.Json;
 
 namespace EntwineLlm.Helpers
 {
@@ -6,8 +8,8 @@ namespace EntwineLlm.Helpers
     {
         public static string CreateForManualRequest(string model, string userCode, string prompt)
         {
-            var promptText = PreparePrompt(prompt);
-            return ReplacePlaceholders(promptText, model, userCode);
+            var promptText = PreparePrompt(Properties.Resources.PromptForManual);
+            return ReplacePlaceholders(promptText, model, userCode, prompt);
         }
 
         public static string CreateForRefactor(string model, string userCode)
@@ -29,12 +31,17 @@ namespace EntwineLlm.Helpers
                 .ReduceMultipleSpaces();
         }
 
-        private static string ReplacePlaceholders(string prompt, string model, string code)
+        private static string ReplacePlaceholders(string prompt, string model, string code, string manualRequest = "")
         {
-            return Properties.Resources.LlmBaseRequest
-                    .Replace("{PROMPT}", prompt)
-                    .Replace("{MODEL}", model)
-                    .Replace("{CODE}", code.EscapeJsonString());
+            code = code.EscapeJsonString();
+            manualRequest = manualRequest.EscapeJsonString();
+
+            var llmRequest = LlmRequest.Create(model, prompt, code, manualRequest);
+            return JsonConvert.SerializeObject(llmRequest, Formatting.Indented, new JsonSerializerSettings()
+            {
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                NullValueHandling = NullValueHandling.Ignore
+            });
         }
     }
 }

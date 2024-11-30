@@ -134,5 +134,15 @@ namespace EntwineLlm
 
             FollowupBox.Text = "";
         }
+
+        private void FollowupBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key != System.Windows.Input.Key.Enter)
+            {
+                return;
+            }
+
+            btnFollowUp_Click(sender, e);
+        }
     }
 }
