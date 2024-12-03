@@ -24,6 +24,12 @@ namespace EntwineLlm.Helpers
             return ReplacePlaceholders(promptText, model, userCode);
         }
 
+        public static string CreateForDocumentation(string model, string userCode)
+        {
+            var promptText = PreparePrompt(Properties.Resources.PromptForDocumentation);
+            return ReplacePlaceholders(promptText, model, userCode);
+        }
+
         private static string PreparePrompt(string prompt)
         {
             return prompt

@@ -17,7 +17,7 @@ namespace EntwineLlm
 
         public void Execute(object sender, EventArgs e)
         {
-            _ = PerformRefactoringSuggestionAsync(Enums.RequestedCodeType.Refactor);
+            _ = PerformRefactoringSuggestionAsync(Enums.CodeType.Refactor);
         }
     }
 }

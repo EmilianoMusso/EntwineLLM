@@ -18,7 +18,7 @@ namespace EntwineLlm
         public void Execute(object sender, EventArgs e)
         {
             var manualPrompt = ManualPromptTextBox != null ? ManualPromptTextBox.Text : "";
-            _ = PerformRefactoringSuggestionAsync(Enums.RequestedCodeType.Manual, manualPrompt);
+            _ = PerformRefactoringSuggestionAsync(Enums.CodeType.Manual, manualPrompt);
         }
     }
 }

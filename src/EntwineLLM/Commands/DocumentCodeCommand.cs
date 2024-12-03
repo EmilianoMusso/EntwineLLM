@@ -5,19 +5,19 @@ using System;
 
 namespace EntwineLlm
 {
-    internal sealed class GenerateTestsCommand(AsyncPackage package) : BaseCommand(package), IBaseCommand
+    internal sealed class DocumentCodeCommand(AsyncPackage package) : BaseCommand(package), IBaseCommand
     {
         public int Id
         {
             get
             {
-                return 251;
+                return 252;
             }
         }
 
         public void Execute(object sender, EventArgs e)
         {
-            _ = PerformRefactoringSuggestionAsync(Enums.CodeType.Test);
+            _ = PerformRefactoringSuggestionAsync(Enums.CodeType.Documentation);
         }
     }
 }

@@ -71,6 +71,21 @@ namespace EntwineLlm.Properties {
         }
         
         /// <summary>
+        ///   Cerca una stringa localizzata simile a CONTEXT:
+        ///You are a professional software technical writer specializing in the .NET ecosystem and C# programming. Your role is to produce clear, concise, and professional technical documentation tailored for experienced developers. The provided code will follow Microsoft&apos;s conventions and .NET best practices.
+        ///
+        ///Focus on:
+        ///
+        ///- Structuring the documentation for readability and professional use.
+        ///- Using Markdown to create clear and hierarchical sections, leveraging headings, bullet points, and code blocks ap [stringa troncata]&quot;;.
+        /// </summary>
+        internal static string PromptForDocumentation {
+            get {
+                return ResourceManager.GetString("PromptForDocumentation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cerca una stringa localizzata simile a CONTEXT: You are a highly skilled and experienced C# developer with in-depth expertise in the Microsoft .NET ecosystem, including the full framework, .NET Core, and .NET. You are also proficient in related technologies, such as LINQ, Entity Framework, ASP.NET Core, and other commonly used tools and libraries in the C# development landscape. Your goal is to deliver optimal and professional-grade code solutions.
         ///
         ///RULES:

@@ -31,7 +31,8 @@ namespace EntwineLlm
             var commands = new List<IBaseCommand>()
             {
                 new RequestRefactorCommand(this),
-                new GenerateTestsCommand(this)
+                new GenerateTestsCommand(this),
+                new DocumentCodeCommand(this)
             };
 
             commandsMenu.AddCommands(commands);

@@ -45,9 +45,9 @@ namespace EntwineLlm.Commands
             return textSelection.Text;
         }
 
-        public async Task PerformRefactoringSuggestionAsync(RequestedCodeType codeType, string manualPrompt = "")
+        public async Task PerformRefactoringSuggestionAsync(CodeType codeType, string manualPrompt = "")
         {
-            var message = "Waiting for LLM response (task requested: " + Enum.GetName(typeof(RequestedCodeType), codeType) + ") ...";
+            var message = "Waiting for LLM response (task requested: " + Enum.GetName(typeof(CodeType), codeType) + ") ...";
 
             var progressBarHelper = new ProgressBarHelper(ServiceProvider.GlobalProvider);
             progressBarHelper.StartIndeterminateDialog(message);
