@@ -5,7 +5,7 @@ using System;
 
 namespace EntwineLlm
 {
-    internal sealed class GenerateTestsCommand : BaseCommand, IBaseCommand
+    internal sealed class GenerateTestsCommand(AsyncPackage package) : BaseCommand(package), IBaseCommand
     {
         public int Id
         {
@@ -14,8 +14,6 @@ namespace EntwineLlm
                 return 251;
             }
         }
-
-        public GenerateTestsCommand(AsyncPackage package) : base(package) { }
 
         public void Execute(object sender, EventArgs e)
         {

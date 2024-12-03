@@ -9,7 +9,7 @@ namespace EntwineLlm
 {
     internal class CommandsMenu
     {
-        private static readonly Guid CommandSet = new Guid("714b6862-aad7-434e-8415-dd928555ba0e");
+        private static readonly Guid CommandSet = new("714b6862-aad7-434e-8415-dd928555ba0e");
         private OleMenuCommandService CommandService;
 
         public OleMenuCommandService Service

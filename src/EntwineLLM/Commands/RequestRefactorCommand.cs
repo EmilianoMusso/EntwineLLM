@@ -5,7 +5,7 @@ using System;
 
 namespace EntwineLlm
 {
-    internal sealed class RequestRefactorCommand : BaseCommand, IBaseCommand
+    internal sealed class RequestRefactorCommand(AsyncPackage package) : BaseCommand(package), IBaseCommand
     {
         public int Id
         {
@@ -14,8 +14,6 @@ namespace EntwineLlm
                 return 250;
             }
         }
-
-        public RequestRefactorCommand(AsyncPackage package) : base(package) { }
 
         public void Execute(object sender, EventArgs e)
         {

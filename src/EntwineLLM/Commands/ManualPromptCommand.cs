@@ -5,7 +5,7 @@ using System;
 
 namespace EntwineLlm
 {
-    internal sealed class ManualPromptCommand : BaseCommand, IBaseCommand
+    internal sealed class ManualPromptCommand(AsyncPackage package) : BaseCommand(package), IBaseCommand
     {
         public int Id
         {
@@ -14,8 +14,6 @@ namespace EntwineLlm
                 return 0;
             }
         }
-
-        public ManualPromptCommand(AsyncPackage package) : base(package) { }
 
         public void Execute(object sender, EventArgs e)
         {

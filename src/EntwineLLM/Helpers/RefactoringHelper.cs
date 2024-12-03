@@ -35,52 +35,40 @@ namespace EntwineLlm
 
         private async Task<string> GetCodeSuggestionsAsync(string methodCode, RequestedCodeType codeType, string manualPrompt)
         {
-            using (var client = new HttpClient())
+            using var client = new HttpClient();
+            client.Timeout = _options.LlmRequestTimeOut;
+
+            var prompt = codeType switch
             {
-                client.Timeout = _options.LlmRequestTimeOut;
+                RequestedCodeType.Manual => PromptHelper.CreateForManualRequest(_options.LlmModel, methodCode, manualPrompt),
+                RequestedCodeType.Refactor => PromptHelper.CreateForRefactor(_options.LlmModel, methodCode),
+                RequestedCodeType.Test => PromptHelper.CreateForTests(_options.LlmModel, methodCode),
+                _ => throw new ArgumentException("Invalid requested code type"),
+            };
+            var content = new StringContent(prompt, Encoding.UTF8, "application/json");
 
-                var prompt = string.Empty;
+            try
+            {
+                var response = await client.PostAsync($"{_options.LlmUrl}/api/chat", content);
+                response.EnsureSuccessStatusCode();
 
-                switch (codeType)
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var code = JObject.Parse(responseContent)["message"]["content"].ToString();
+
+                const string pattern = @"```csharp(.*?)```";
+                var matches = Regex.Matches(code, pattern, RegexOptions.Singleline);
+
+                var extractedCode = new StringBuilder();
+                foreach (Match match in matches)
                 {
-                    case RequestedCodeType.Manual:
-                        prompt = PromptHelper.CreateForManualRequest(_options.LlmModel, methodCode, manualPrompt);
-                        break;
-                    case RequestedCodeType.Refactor:
-                        prompt = PromptHelper.CreateForRefactor(_options.LlmModel, methodCode);
-                        break;
-                    case RequestedCodeType.Test:
-                        prompt = PromptHelper.CreateForTests(_options.LlmModel, methodCode);
-                        break;
-                    default:
-                        throw new ArgumentException("Invalid requested code type");
+                    extractedCode.AppendLine(match.Groups[1].Value.Trim());
                 }
 
-                var content = new StringContent(prompt, Encoding.UTF8, "application/json");
-
-                try
-                {
-                    var response = await client.PostAsync($"{_options.LlmUrl}/api/chat", content);
-                    response.EnsureSuccessStatusCode();
-
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var code = JObject.Parse(responseContent)["message"]["content"].ToString();
-
-                    var pattern = @"```csharp(.*?)```";
-                    var matches = Regex.Matches(code, pattern, RegexOptions.Singleline);
-
-                    var extractedCode = new StringBuilder();
-                    foreach (Match match in matches)
-                    {
-                        extractedCode.AppendLine(match.Groups[1].Value.Trim());
-                    }
-
-                    return extractedCode.ToString();
-                }
-                catch (Exception ex)
-                {
-                    return ex.Message;
-                }
+                return extractedCode.ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
             }
         }
 

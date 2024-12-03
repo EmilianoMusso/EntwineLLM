@@ -20,11 +20,11 @@ namespace EntwineLlm.Models
             {
                 Model = model,
                 Stream = false,
-                Messages = new List<LlmMessage>()
-                {
+                Messages =
+                [
                     LlmMessage.CreateAssistantMessage(prompt),
                     LlmMessage.CreateUserMessage("[CODE]: " + userCode)
-                }
+                ]
             };
 
             if (!string.IsNullOrEmpty(manualRequest))

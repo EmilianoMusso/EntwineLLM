@@ -31,7 +31,7 @@ namespace EntwineLlm
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            if (!(Package.GetGlobalService(typeof(DTE)) is DTE dte))
+            if (Package.GetGlobalService(typeof(DTE)) is not DTE dte)
             {
                 return;
             }
