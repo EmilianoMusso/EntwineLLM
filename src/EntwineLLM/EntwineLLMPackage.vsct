@@ -42,10 +42,6 @@
     <GuidSymbol name="guidTextEditor" value="{8B382828-6202-11D1-8870-0000F87579D2}" />
     <GuidSymbol name="guidEntwineLlmPackage" value="{3c995b0e-1f37-4cef-9ac7-9771b3fb6162}" />
 
-    <GuidSymbol name="guidEntwineLlmPackageCmdSet" value="{210a38b5-5d0f-4cda-8abe-fd9b7edcbe86}">
-      <IDSymbol name="RefactorSuggestionWindowCommandId" value="0x0100" />
-    </GuidSymbol>
-  
     <GuidSymbol value="{714b6862-aad7-434e-8415-dd928555ba0e}" name="guidEntwineLlmPackageCmdSet1">
       <IDSymbol value="4128" name="MyMenuGroup" />
       <IDSymbol value="250" name="cmdidRequestRefactor" />

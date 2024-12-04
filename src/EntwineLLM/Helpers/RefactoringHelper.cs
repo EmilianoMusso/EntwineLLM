@@ -33,7 +33,10 @@ namespace EntwineLlm
 
             switch (suggestion.Type)
             {
-                // TO DO: other windows
+                case CodeType.Documentation:
+                    await ShowMarkdownWindowAsync(suggestion.Code);
+                    break;
+
                 default:
                     await ShowSuggestionWindowAsync(suggestion.Code, activeDocumentPath);
                     break;
@@ -66,7 +69,7 @@ namespace EntwineLlm
                 const string pattern = "```csharp(.*?)```";
                 var matches = Regex.Matches(code, pattern, RegexOptions.Singleline);
 
-                if (matches.Count == 0)
+                if (matches.Count == 0 || codeType == CodeType.Documentation)
                 {
                     return CodeSuggestionResponse.Success(codeType, code);
                 }
@@ -90,6 +93,13 @@ namespace EntwineLlm
             ToolWindowPane window = await WindowHelper.ShowToolWindowAsync<RefactorSuggestionWindow>(_package);
             var control = (RefactorSuggestionWindowControl)window.Content;
             control.DisplaySuggestion(suggestion, activeDocumentPath);
+        }
+
+        private async Task ShowMarkdownWindowAsync(string suggestion)
+        {
+            ToolWindowPane window = await WindowHelper.ShowToolWindowAsync<MarkdownViewerWindow>(_package);
+            var control = (MarkdownViewer)window.Content;
+            control.DisplaySuggestion(suggestion);
         }
     }
 }
