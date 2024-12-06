@@ -33,7 +33,8 @@ namespace EntwineLlm
             {
                 new RequestRefactorCommand(this),
                 new GenerateTestsCommand(this),
-                new DocumentCodeCommand(this)
+                new DocumentCodeCommand(this),
+                new CodeReviewCommand(this)
             };
 
             commandsMenu.AddCommands(commands);

@@ -41,7 +41,6 @@
             <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
 
-        <!-- Intestazione -->
         <Border Grid.Row="0" Background="#FF2C2C2C" Padding="15,0">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBlock Text="Markdown Viewer" 
@@ -53,15 +52,13 @@
             </StackPanel>
         </Border>
 
-        <!-- Editor e Anteprima -->
         <Grid Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" x:Name="codeColumn"/>
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Editor Markdown -->
             <Border Grid.Column="0" 
                     Background="#FF2A2A2A" 
                     CornerRadius="6" 
@@ -79,13 +76,11 @@
                     Background="Transparent"/>
             </Border>
 
-            <!-- Separatore -->
             <GridSplitter Grid.Column="1" 
                           Width="5" 
                           HorizontalAlignment="Stretch"
                           Background="#FF3A3A3A"/>
 
-            <!-- Anteprima Markdown -->
             <Border Grid.Column="2" 
                     Background="#FF2A2A2A" 
                     CornerRadius="6" 
@@ -96,18 +91,20 @@
             </Border>
         </Grid>
 
-        <!-- Pannello inferiore -->
         <Grid Grid.Row="2" Background="#FF262626" Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Sezione Zoom a sinistra -->
             <StackPanel Grid.Column="0" 
                         Orientation="Horizontal" 
                         VerticalAlignment="Center" 
                         Margin="15,0">
+                <Button Content="[ ]" 
+                        Style="{StaticResource ModernButton}"
+                        Width="40"
+                        Click="btnCollapse_Click"/>                
                 <TextBlock Text="Zoom:" 
                            Foreground="White" 
                            VerticalAlignment="Center" 
@@ -118,10 +115,10 @@
                         Value="14"
                         Width="200"
                         TickFrequency="1"
-                        IsSnapToTickEnabled="True"/>
+                        IsSnapToTickEnabled="True"
+                        VerticalAlignment="Center"/>
             </StackPanel>
 
-            <!-- Bottoni a destra -->
             <StackPanel Grid.Column="1" 
                         Orientation="Horizontal" 
                         VerticalAlignment="Center" 

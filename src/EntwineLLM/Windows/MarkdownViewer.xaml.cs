@@ -80,5 +80,17 @@ namespace EntwineLlm
             var parentWindow = Window.GetWindow(this);
             parentWindow?.Close();
         }
+
+        private void btnCollapse_Click(object sender, RoutedEventArgs e)
+        {
+            if (codeColumn.ActualWidth == 0.0)
+            {
+                codeColumn.Width = GridLength.Auto;
+            }
+            else
+            {
+                codeColumn.Width = new GridLength(0);
+            }
+        }
     }
 }

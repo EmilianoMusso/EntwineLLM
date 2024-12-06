@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="CommandsMenu.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\CodeReviewCommand.cs" />
     <Compile Include="Commands\DocumentCodeCommand.cs" />
     <Compile Include="Commands\ManualPromptCommand.cs" />
     <Compile Include="Commands\GenerateTestsCommand.cs" />

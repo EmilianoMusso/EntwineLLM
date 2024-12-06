@@ -34,6 +34,7 @@ namespace EntwineLlm
             switch (suggestion.Type)
             {
                 case CodeType.Documentation:
+                case CodeType.Review:
                     await ShowMarkdownWindowAsync(suggestion.Code);
                     break;
 

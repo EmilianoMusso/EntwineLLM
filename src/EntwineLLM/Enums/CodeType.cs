@@ -7,5 +7,6 @@
         Documentation = 5,
         Refactor = 10,
         Test = 20,
+        Review = 30
     }
 }

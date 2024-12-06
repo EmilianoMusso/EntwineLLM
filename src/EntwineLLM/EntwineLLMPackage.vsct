@@ -22,7 +22,13 @@
         <Strings>
           <ButtonText>Document code with EntwineLlm</ButtonText>
         </Strings>
-      </Button>      
+      </Button>
+      <Button guid="guidEntwineLlmPackageCmdSet1" id="cmdCodeReview" priority="0x0100" type="Button">
+        <Parent guid="guidEntwineLlmPackageCmdSet1" id="MyMenuGroup" />
+        <Strings>
+          <ButtonText>Code review with EntwineLlm</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
     <Groups>
@@ -36,6 +42,7 @@
     <KeyBinding guid="guidEntwineLlmPackageCmdSet1" id="cmdidRequestRefactor" editor="guidTextEditor" key1="VK_F1" mod1="SHIFT" />
     <KeyBinding guid="guidEntwineLlmPackageCmdSet1" id="cmdGenerateUnitTests" editor="guidTextEditor" key1="VK_F2" mod1="SHIFT" />
     <KeyBinding guid="guidEntwineLlmPackageCmdSet1" id="cmdDocumentCode" editor="guidTextEditor" key1="VK_F3" mod1="SHIFT" />
+    <KeyBinding guid="guidEntwineLlmPackageCmdSet1" id="cmdCodeReview" editor="guidTextEditor" key1="VK_F4" mod1="SHIFT" />
   </KeyBindings>
 
   <Symbols>
@@ -47,6 +54,7 @@
       <IDSymbol value="250" name="cmdidRequestRefactor" />
       <IDSymbol value="251" name="cmdGenerateUnitTests" />
       <IDSymbol value="252" name="cmdDocumentCode" />
+      <IDSymbol value="253" name="cmdCodeReview" />
     </GuidSymbol>
   
   </Symbols>
