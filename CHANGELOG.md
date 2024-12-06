@@ -1,3 +1,9 @@
+### v1.7.0 Document and Code review commands
+---
+Added new commands to:
+- Generate documentation for selected code
+- Review selected code to identify issues and improvements
+
 ### v1.6.0 Follow-up prompt
 ---
 - Visual style revisited
