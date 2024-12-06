@@ -55,6 +55,7 @@ namespace EntwineLlm
                 CodeType.Refactor => PromptHelper.CreateForRefactor(_options.LlmModel, methodCode),
                 CodeType.Test => PromptHelper.CreateForTests(_options.LlmModel, methodCode),
                 CodeType.Documentation => PromptHelper.CreateForDocumentation(_options.LlmModel, methodCode),
+                CodeType.Review => PromptHelper.CreateForReview(_options.LlmModel, methodCode),
                 _ => throw new ArgumentException("Invalid requested code type"),
             };
             var content = new StringContent(prompt, Encoding.UTF8, "application/json");
@@ -70,7 +71,7 @@ namespace EntwineLlm
                 const string pattern = "```csharp(.*?)```";
                 var matches = Regex.Matches(code, pattern, RegexOptions.Singleline);
 
-                if (matches.Count == 0 || codeType == CodeType.Documentation)
+                if (MustReturnFullResponse(matches, codeType))
                 {
                     return CodeSuggestionResponse.Success(codeType, code);
                 }
@@ -87,6 +88,11 @@ namespace EntwineLlm
             {
                 return CodeSuggestionResponse.Failure();
             }
+        }
+
+        private bool MustReturnFullResponse(MatchCollection matches, CodeType codeType)
+        {
+            return matches.Count == 0 || codeType == CodeType.Documentation || codeType == CodeType.Review;
         }
 
         private async Task ShowSuggestionWindowAsync(string suggestion, string activeDocumentPath)

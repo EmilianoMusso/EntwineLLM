@@ -19,7 +19,7 @@ namespace EntwineLlm.Helpers
             => CreatePrompt(Properties.Resources.PromptForDocumentation, model, userCode);
 
         public static string CreateForReview(string model, string userCode)
-            => CreatePrompt("", model, userCode);
+            => CreatePrompt(Properties.Resources.PromptForReview, model, userCode);
 
         private static string CreatePrompt(string promptModel, string model, string userCode)
         {

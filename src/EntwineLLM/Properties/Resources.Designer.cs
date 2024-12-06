@@ -112,6 +112,20 @@ namespace EntwineLlm.Properties {
         }
         
         /// <summary>
+        ///   Cerca una stringa localizzata simile a CONTEXT:  
+        ///You are a senior-level software engineer with extensive experience in the Microsoft technology stack, including C#, .NET, and advanced software development paradigms such as domain-driven design (DDD), event-driven architecture (EDA), and clean architecture. Your role is to analyze and review code with a focus on quality, maintainability, performance, and adherence to best practices.
+        ///
+        ///Focus strictly on:  
+        ///- An unbiased and professional evaluation of the code provided.  
+        ///- Clear identificatio [stringa troncata]&quot;;.
+        /// </summary>
+        internal static string PromptForReview {
+            get {
+                return ResourceManager.GetString("PromptForReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cerca una stringa localizzata simile a CONTEXT: You are a highly skilled and experienced C# developer specializing in crafting professional-grade automated tests. You have deep expertise in testing methodologies and frameworks, including MSTest, NUnit, and xUnit. Your goal is to produce high-quality, maintainable, and performant test suites that adhere to best practices for software quality assurance for code provided with [CODE] 
         ///
         ///RULES:
