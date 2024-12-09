@@ -14,7 +14,8 @@ namespace EntwineLlm
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideToolWindow(typeof(RefactorSuggestionWindow))]
     [ProvideToolWindow(typeof(MarkdownViewerWindow))]
-    [ProvideOptionPage(typeof(EntwineLlmOptions), "EntwineLlm", "Configuration", 0, 0, true)]
+    [ProvideOptionPage(typeof(GeneralOptions), "EntwineLlm", "Configuration", 0, 0, true)]
+    [ProvideOptionPage(typeof(ModelsOptions), "EntwineLlm", "Models", 0, 0, true)]
     public sealed class EntwineLlmPackage : AsyncPackage
     {
         public const string PackageGuidString = "3c995b0e-1f37-4cef-9ac7-9771b3fb6162";

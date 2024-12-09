@@ -14,13 +14,15 @@ namespace EntwineLlm
 {
     internal class RefactoringHelper
     {
-        private readonly EntwineLlmOptions _options;
+        private readonly GeneralOptions _generalOptions;
+        private readonly ModelsOptions _modelsOptions;
         private readonly AsyncPackage _package;
 
         public RefactoringHelper(AsyncPackage package)
         {
             _package = package;
-            _options = package.GetDialogPage(typeof(EntwineLlmOptions)) as EntwineLlmOptions;
+            _generalOptions = package.GetDialogPage(typeof(GeneralOptions)) as GeneralOptions;
+            _modelsOptions = package.GetDialogPage(typeof(ModelsOptions)) as ModelsOptions;
         }
 
         public async Task RequestCodeSuggestionsAsync(
@@ -47,22 +49,22 @@ namespace EntwineLlm
         private async Task<CodeSuggestionResponse> GetCodeSuggestionsAsync(string methodCode, CodeType codeType, string manualPrompt)
         {
             using var client = new HttpClient();
-            client.Timeout = _options.LlmRequestTimeOut;
+            client.Timeout = _generalOptions.LlmRequestTimeOut;
 
             var prompt = codeType switch
             {
-                CodeType.Manual => PromptHelper.CreateForManualRequest(_options.LlmModel, methodCode, manualPrompt),
-                CodeType.Refactor => PromptHelper.CreateForRefactor(_options.LlmModel, methodCode),
-                CodeType.Test => PromptHelper.CreateForTests(_options.LlmModel, methodCode),
-                CodeType.Documentation => PromptHelper.CreateForDocumentation(_options.LlmModel, methodCode),
-                CodeType.Review => PromptHelper.CreateForReview(_options.LlmModel, methodCode),
+                CodeType.Manual => PromptHelper.CreateForManualRequest(_modelsOptions.LlmFollowUp, methodCode, manualPrompt),
+                CodeType.Refactor => PromptHelper.CreateForRefactor(_modelsOptions.LlmRefactor, methodCode),
+                CodeType.Test => PromptHelper.CreateForTests(_modelsOptions.LlmUnitTests, methodCode),
+                CodeType.Documentation => PromptHelper.CreateForDocumentation(_modelsOptions.LlmDocumentation, methodCode),
+                CodeType.Review => PromptHelper.CreateForReview(_modelsOptions.LlmReview, methodCode),
                 _ => throw new ArgumentException("Invalid requested code type"),
             };
             var content = new StringContent(prompt, Encoding.UTF8, "application/json");
 
             try
             {
-                var response = await client.PostAsync($"{_options.LlmUrl}/api/chat", content);
+                var response = await client.PostAsync($"{_generalOptions.LlmUrl}/api/chat", content);
                 response.EnsureSuccessStatusCode();
 
                 var responseContent = await response.Content.ReadAsStringAsync();

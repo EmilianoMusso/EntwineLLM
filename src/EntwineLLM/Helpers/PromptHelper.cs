@@ -7,7 +7,7 @@ namespace EntwineLlm.Helpers
     internal static class PromptHelper
     {
         public static string CreateForManualRequest(string model, string userCode, string prompt)
-            => CreatePrompt(Properties.Resources.PromptForManual, model, userCode);
+            => CreatePrompt(Properties.Resources.PromptForManual, model, userCode, prompt);
 
         public static string CreateForRefactor(string model, string userCode)
             => CreatePrompt(Properties.Resources.PromptForRefactor, model, userCode);
@@ -21,10 +21,10 @@ namespace EntwineLlm.Helpers
         public static string CreateForReview(string model, string userCode)
             => CreatePrompt(Properties.Resources.PromptForReview, model, userCode);
 
-        private static string CreatePrompt(string promptModel, string model, string userCode)
+        private static string CreatePrompt(string promptModel, string model, string userCode, string manualRequest = "")
         {
             var promptText = PreparePrompt(promptModel);
-            return ReplacePlaceholders(promptText, model, userCode);
+            return ReplacePlaceholders(promptText, model, userCode, manualRequest);
         }
 
         private static string PreparePrompt(string prompt)
