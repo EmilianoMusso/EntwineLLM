@@ -49,7 +49,6 @@ namespace EntwineLlm
         private void btnApply_Click(object sender, RoutedEventArgs e)
         {
             ReplaceSelectedTextInIDE(SuggestionBox.Text);
-
             btnClose_Click(sender, e);
         }
 

@@ -86,7 +86,7 @@ namespace EntwineLlm
 
                 return CodeSuggestionResponse.Success(codeType, extractedCode.ToString());
             }
-            catch (Exception ex)
+            catch
             {
                 return CodeSuggestionResponse.Failure();
             }
