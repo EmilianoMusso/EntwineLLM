@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.Shell;
+using System;
 
 namespace EntwineLlm.Helpers
 {

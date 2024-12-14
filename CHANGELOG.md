@@ -1,3 +1,7 @@
+### v1.8.0 Added specific models for each operation
+---
+- User can now configure a specific LLM to serve each operation
+
 ### v1.7.0 Document and Code review commands
 ---
 Added new commands to:
