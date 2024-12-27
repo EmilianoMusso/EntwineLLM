@@ -48,9 +48,6 @@ namespace EntwineLlm
 
         private async Task<CodeSuggestionResponse> GetCodeSuggestionsAsync(string methodCode, CodeType codeType, string manualPrompt)
         {
-            using var client = new HttpClient();
-            client.Timeout = _generalOptions.LlmRequestTimeOut;
-
             var prompt = codeType switch
             {
                 CodeType.Manual => PromptHelper.CreateForManualRequest(_modelsOptions.LlmFollowUp, methodCode, manualPrompt),
@@ -64,11 +61,7 @@ namespace EntwineLlm
 
             try
             {
-                var response = await client.PostAsync($"{_generalOptions.LlmUrl}/api/chat", content);
-                response.EnsureSuccessStatusCode();
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var code = JObject.Parse(responseContent)["message"]["content"].ToString();
+                var code = await _generalOptions.LlmServer.GetChatCompletionAsync(content);
 
                 const string pattern = "```csharp(.*?)```";
                 var matches = Regex.Matches(code, pattern, RegexOptions.Singleline);
