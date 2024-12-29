@@ -70,6 +70,7 @@
     <Compile Include="Helpers\PromptHelper.cs" />
     <Compile Include="Helpers\RefactoringHelper.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
+    <Compile Include="LlmServerConverter.cs" />
     <Compile Include="Servers\LLMServerBase.cs" />
     <Compile Include="Servers\LMStudioServer.cs" />
     <Compile Include="Models\CodeSuggestionResponse.cs" />

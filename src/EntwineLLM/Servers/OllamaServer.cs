@@ -15,7 +15,7 @@ namespace EntwineLlm.Models
             using var client = new HttpClient();
             client.Timeout = RequestTimeOut;
 
-            var response = await client.GetAsync($"{BaseUrl}api/list_models");
+            var response = await client.GetAsync($"{BaseUrl}api/tags");
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
