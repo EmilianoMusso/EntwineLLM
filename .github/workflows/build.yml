@@ -29,5 +29,8 @@ jobs:
         queries: +security-extended
         languages: csharp
 
+    - name: CodqQL autobuild
+      uses: github/codeql-action/autobuild@v3
+
     - name: Analyze code quality
       uses: github/codeql-action/analyze@v3
