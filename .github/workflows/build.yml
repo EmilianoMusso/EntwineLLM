@@ -39,9 +39,9 @@ jobs:
         run: msbuild EntwineLLM.sln /p:Configuration=Release /p:Version=${{ env.fullSemVer }}
 
       - name: Publish artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-            name: artifacts
+            name: entwinellm-artifacts
             retention-days: 5
             path: |
                 **\bin\Release
