@@ -1,40 +1,53 @@
 on: [push, pull_request]
- 
+
 jobs:
   build:
- 
     runs-on: windows-latest
     permissions:
       actions: read
       contents: read
       security-events: write
- 
+
     steps:
-    - uses: actions/checkout@v1
-      name: Checkout code
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v3
+        name: Checkout code
+        with:
+          fetch-depth: 0
      
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v2
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
 
-    - name: Setup NuGet
-      uses: nuget/setup-nuget@v2
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
      
-    - name: Restore NuGet packages
-      run: nuget restore EntwineLLM.sln
+      - name: Restore NuGet packages
+        run: nuget restore EntwineLLM.sln
 
-    - name: Build EntwineLLM
-      run: msbuild EntwineLLM.sln -verbosity:diag -property:Configuration=Release
+      - name: Build EntwineLLM
+        run: msbuild EntwineLLM.sln -property:Configuration=Release
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        queries: +security-extended
-        languages: csharp
+  analyze:
+    runs-on: windows-latest
+    needs: build
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
 
-    - name: CodeQL autobuild
-      uses: github/codeql-action/autobuild@v3
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout code
+        with:
+          fetch-depth: 0
 
-    - name: Analyze code quality
-      uses: github/codeql-action/analyze@v3
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          queries: +security-extended
+          languages: csharp
+
+      - name: CodeQL autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Analyze code quality
+        uses: github/codeql-action/analyze@v3
