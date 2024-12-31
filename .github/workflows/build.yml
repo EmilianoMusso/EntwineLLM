@@ -4,6 +4,10 @@ jobs:
   build:
  
     runs-on: windows-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
  
     steps:
     - uses: actions/checkout@v1
@@ -29,7 +33,7 @@ jobs:
         queries: +security-extended
         languages: csharp
 
-    - name: CodqQL autobuild
+    - name: CodeQL autobuild
       uses: github/codeql-action/autobuild@v3
 
     - name: Analyze code quality
