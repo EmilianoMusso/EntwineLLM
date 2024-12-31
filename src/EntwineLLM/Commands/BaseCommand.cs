@@ -56,6 +56,13 @@ namespace EntwineLlm.Commands
                 SuggestedCodeEditor.Text
                 : GetCurrentMethodCode();
 
+            if (string.IsNullOrEmpty(methodCode))
+            {
+                progressBarHelper.StopDialog();
+                WindowHelper.MsgBox("It is necessary to select the source code to be processed from the editor");
+                return;
+            }
+
             var refactoringHelper = new RefactoringHelper(package);
             await refactoringHelper.RequestCodeSuggestionsAsync(methodCode, ActiveDocumentPath, codeType, manualPrompt);
 
