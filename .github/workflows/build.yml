@@ -8,6 +8,8 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       name: Checkout code
+      with:
+        fetch-depth: 0
      
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
@@ -20,3 +22,12 @@ jobs:
 
     - name: Build EntwineLLM
       run: msbuild EntwineLLM.sln -verbosity:diag -property:Configuration=Release
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        queries: +security-extended
+        languages: csharp
+
+    - name: Analyze code quality
+      uses: github/codeql-action/analyze@v3
