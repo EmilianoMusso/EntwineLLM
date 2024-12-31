@@ -1,4 +1,4 @@
-on: [push]
+on: [push, pull_request]
  
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.0.2
+      uses: nuget/setup-nuget@v2
      
     - name: Restore NuGet packages
       run: nuget restore EntwineLLM.sln
