@@ -68,9 +68,12 @@ namespace EntwineLlm
                 response.EnsureSuccessStatusCode();
 
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var code = JObject.Parse(responseContent)["message"]["content"].ToString();
+                var code = JObject
+                    .Parse(responseContent)["message"]["content"]
+                    .ToString()
+                    .Replace("\r\n", Environment.NewLine);
 
-                const string pattern = "```csharp(.*?)```";
+                const string pattern = @"```(?:([a-zA-Z0-9+#]*)\n)?(.*?)```";
                 var matches = Regex.Matches(code, pattern, RegexOptions.Singleline);
 
                 if (MustReturnFullResponse(matches, codeType))
@@ -81,7 +84,7 @@ namespace EntwineLlm
                 var extractedCode = new StringBuilder();
                 foreach (Match match in matches)
                 {
-                    extractedCode.AppendLine(match.Groups[1].Value.Trim());
+                    extractedCode.AppendLine(match.Groups[2].Value.Trim());
                 }
 
                 return CodeSuggestionResponse.Success(codeType, extractedCode.ToString());

@@ -71,13 +71,11 @@ namespace EntwineLlm.Properties {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a CONTEXT:
-        ///You are a professional software technical writer specializing in the .NET ecosystem and C# programming. Your role is to produce clear, concise, and professional technical documentation tailored for experienced developers. The provided code will follow Microsoft&apos;s conventions and .NET best practices.
+        ///   Cerca una stringa localizzata simile a CONTEXT:  
+        ///You are a professional software technical writer specializing in crafting high-quality, concise, and professional-grade technical documentation for a variety of programming languages and ecosystems. Your expertise extends to .NET and C#, Python, Java, JavaScript, and more, covering both language-specific best practices and industry standards. The goal is to produce clear and comprehensive documentation tailored for experienced developers.
         ///
-        ///Focus on:
-        ///
-        ///- Structuring the documentation for readability and professional use.
-        ///- Using Markdown to create clear and hierarchical sections, leveraging headings, bullet points, and code blocks ap [stringa troncata]&quot;;.
+        ///Focus on:  
+        ///- Structuring the documentation for maxim [stringa troncata]&quot;;.
         /// </summary>
         internal static string PromptForDocumentation {
             get {
@@ -86,11 +84,7 @@ namespace EntwineLlm.Properties {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a CONTEXT: You are a highly skilled and experienced C# developer with in-depth expertise in the Microsoft .NET ecosystem, including the full framework, .NET Core, and .NET. You are also proficient in related technologies, such as LINQ, Entity Framework, ASP.NET Core, and other commonly used tools and libraries in the C# development landscape. Your goal is to deliver optimal and professional-grade code solutions.
-        ///
-        ///RULES:
-        ///- No explanation, comments, or additional text should be provided.
-        ///- For requests cont [stringa troncata]&quot;;.
+        ///   Cerca una stringa localizzata simile a CONTEXT: You are a highly skilled and experienced software developer with in-depth expertise in multiple programming languages, including but not limited to C#, Python, Java, JavaScript, TypeScript, Go, Rust, and C++. You possess extensive knowledge of their respective ecosystems, frameworks, and libraries, such as .NET (Full Framework, .NET Core, .NET), Flask, Spring Boot, Node.js, Angular, React, Gin, Actix, and Boost. Your goal is to deliver optimal, professional-grade code solutions tailored to the sele [stringa troncata]&quot;;.
         /// </summary>
         internal static string PromptForManual {
             get {
@@ -99,11 +93,12 @@ namespace EntwineLlm.Properties {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a CONTEXT: You are a highly skilled and experienced C# developer with in-depth expertise in the Microsoft .NET ecosystem, including the full framework, .NET Core, and .NET. You are also proficient in related technologies, such as LINQ, Entity Framework, ASP.NET Core, and other commonly used tools and libraries in the C# development landscape. Your goal is to deliver optimal and professional-grade code solutions.
+        ///   Cerca una stringa localizzata simile a CONTEXT:  
+        ///You are a highly skilled and experienced software developer with in-depth expertise in various programming languages, frameworks, and paradigms. Your goal is to deliver optimal and professional-grade code solutions tailored to the specific language and ecosystem of the request. You are proficient in adapting to the conventions and idiomatic patterns of the following programming languages:  
         ///
-        ///RULES:
-        ///1. No explanation, comments, or additional text should be provided.
-        ///2. For requests co [stringa troncata]&quot;;.
+        ///- **Object-Oriented Languages (e.g., C#, Java)**  
+        ///- **Functional Languages (e.g., F#, Haskell)**  
+        ///- [stringa troncata]&quot;;.
         /// </summary>
         internal static string PromptForRefactor {
             get {
@@ -126,11 +121,7 @@ namespace EntwineLlm.Properties {
         }
         
         /// <summary>
-        ///   Cerca una stringa localizzata simile a CONTEXT: You are a highly skilled and experienced C# developer specializing in crafting professional-grade automated tests. You have deep expertise in testing methodologies and frameworks, including MSTest, NUnit, and xUnit. Your goal is to produce high-quality, maintainable, and performant test suites that adhere to best practices for software quality assurance for code provided with [CODE] 
-        ///
-        ///RULES:
-        ///
-        ///- The tests must be clear, readable, and follow the Arrange-Act-Assert (AAA) pattern to ensure logical  [stringa troncata]&quot;;.
+        ///   Cerca una stringa localizzata simile a CONTEXT: You are a highly skilled and experienced software developer specializing in crafting professional-grade automated tests across multiple programming languages. You possess deep expertise in testing methodologies and frameworks, including but not limited to MSTest, NUnit, xUnit (C#), pytest (Python), JUnit (Java), Jest (JavaScript), and more. Your goal is to produce high-quality, maintainable, and performant test suites adhering to the best practices of software quality assurance for the code provide [stringa troncata]&quot;;.
         /// </summary>
         internal static string PromptForTests {
             get {
