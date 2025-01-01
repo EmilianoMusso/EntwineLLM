@@ -47,7 +47,7 @@ namespace EntwineLlm
             MarkdownPreview.NavigateToString(htmlWithStyle);
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             var saveFileDialog = new SaveFileDialog
             {
@@ -61,7 +61,7 @@ namespace EntwineLlm
             }
         }
 
-        private void btnExport_Click(object sender, RoutedEventArgs e)
+        private void BtnExport_Click(object sender, RoutedEventArgs e)
         {
             var saveFileDialog = new SaveFileDialog
             {
@@ -75,15 +75,15 @@ namespace EntwineLlm
             }
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             var parentWindow = Window.GetWindow(this);
             parentWindow?.Close();
         }
 
-        private void btnCollapse_Click(object sender, RoutedEventArgs e)
+        private void BtnCollapse_Click(object sender, RoutedEventArgs e)
         {
-            if (codeColumn.ActualWidth == 0.0)
+            if (codeColumn.ActualWidth >= 0.0 && codeColumn.ActualWidth <= 0.9)
             {
                 codeColumn.Width = GridLength.Auto;
             }

@@ -95,7 +95,7 @@ namespace EntwineLlm
             }
         }
 
-        private bool MustReturnFullResponse(MatchCollection matches, CodeType codeType)
+        private static bool MustReturnFullResponse(MatchCollection matches, CodeType codeType)
         {
             return matches.Count == 0 || codeType == CodeType.Documentation || codeType == CodeType.Review;
         }

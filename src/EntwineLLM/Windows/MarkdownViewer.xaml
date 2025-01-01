@@ -104,7 +104,7 @@
                 <Button Content="[ ]" 
                         Style="{StaticResource ModernButton}"
                         Width="40"
-                        Click="btnCollapse_Click"/>                
+                        Click="BtnCollapse_Click"/>                
                 <TextBlock Text="Zoom:" 
                            Foreground="White" 
                            VerticalAlignment="Center" 
@@ -126,16 +126,16 @@
                 <Button Content="Save" 
                         Style="{StaticResource ModernButton}"
                         Width="100"
-                        Click="btnSave_Click"/>
+                        Click="BtnSave_Click"/>
                 <Button Content="Export" 
                         Style="{StaticResource ModernButton}"
                         Width="100"
-                        Click="btnExport_Click"/>
+                        Click="BtnExport_Click"/>
                 <Button Content="Close" 
                         Style="{StaticResource ModernButton}"
                         Width="100"
                         IsCancel="True"
-                        Click="btnClose_Click"/>
+                        Click="BtnClose_Click"/>
             </StackPanel>
         </Grid>
     </Grid>

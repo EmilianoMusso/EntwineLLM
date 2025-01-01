@@ -46,19 +46,19 @@ namespace EntwineLlm
             }
         }
 
-        private void btnApply_Click(object sender, RoutedEventArgs e)
+        private void BtnApply_Click(object sender, RoutedEventArgs e)
         {
             ReplaceSelectedTextInIDE(SuggestionBox.Text);
-            btnClose_Click(sender, e);
+            BtnClose_Click(sender, e);
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             var parentWindow = System.Windows.Window.GetWindow(this);
             parentWindow?.Close();
         }
 
-        private void btnAbout_Click(object sender, RoutedEventArgs e)
+        private void BtnAbout_Click(object sender, RoutedEventArgs e)
         {
             var aboutWindow = new AboutWindow();
             var window = new System.Windows.Window
@@ -75,7 +75,7 @@ namespace EntwineLlm
             window.ShowDialog();
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             _ = SaveGeneratedCodeAsync(SuggestionBox.Text);
         }
@@ -116,7 +116,7 @@ namespace EntwineLlm
                 : Path.GetDirectoryName(project.FullName);
         }
 
-        private void btnFollowUp_Click(object sender, RoutedEventArgs e)
+        private void BtnFollowUp_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(FollowupBox.Text))
             {
@@ -141,7 +141,7 @@ namespace EntwineLlm
                 return;
             }
 
-            btnFollowUp_Click(sender, e);
+            BtnFollowUp_Click(sender, e);
         }
     }
 }

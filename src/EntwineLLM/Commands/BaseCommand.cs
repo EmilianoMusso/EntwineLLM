@@ -25,7 +25,7 @@ namespace EntwineLlm.Commands
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            if (!(Package.GetGlobalService(typeof(EnvDTE.DTE)) is EnvDTE.DTE dte))
+            if (Package.GetGlobalService(typeof(EnvDTE.DTE)) is not EnvDTE.DTE dte)
             {
                 return string.Empty;
             }
@@ -36,7 +36,7 @@ namespace EntwineLlm.Commands
                 return string.Empty;
             }
 
-            if (!(activeDocument.Selection is EnvDTE.TextSelection textSelection))
+            if (activeDocument.Selection is not EnvDTE.TextSelection textSelection)
             {
                 return string.Empty;
             }
