@@ -163,7 +163,6 @@
     <Content Include="Resources\vs-entwine-menu.png" />
     <Content Include="Resources\vs-entwine-options.png" />
     <Content Include="Resources\vs-entwine-suggestion.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
   </ItemGroup>

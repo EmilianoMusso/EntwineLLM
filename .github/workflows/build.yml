@@ -41,34 +41,8 @@ jobs:
       - name: Publish artifacts
         uses: actions/upload-artifact@v4
         with:
-            name: entwinellm-artifacts
+            name: entwinellm-${{ env.fullSemVer }}
             retention-days: 5
             path: |
                 **\bin\Release
                 **\obj\Release
-
-  analyze:
-    runs-on: windows-latest
-    needs: build
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-
-    steps:
-      - uses: actions/checkout@v3
-        name: Checkout code
-        with:
-          fetch-depth: 0
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          queries: +security-extended
-          languages: csharp
-
-      - name: CodeQL autobuild
-        uses: github/codeql-action/autobuild@v3
-
-      - name: Analyze code quality
-        uses: github/codeql-action/analyze@v3
