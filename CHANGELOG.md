@@ -1,3 +1,9 @@
+### v1.9.0 Generic refactoring
+---
+- Main menu moved to Extensions menu; command are now grouped
+- Added multiple programming languages support
+- Minor refactorings
+
 ### v1.8.0 Added specific models for each operation
 ---
 - User can now configure a specific LLM to serve each operation

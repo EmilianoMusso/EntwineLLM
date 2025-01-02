@@ -51,18 +51,6 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" 
-                    Width="120" 
-                    Height="120" 
-                    CornerRadius="10" 
-                    Margin="0,0,15,0" 
-                    BorderThickness="1" 
-                    BorderBrush="#FF3A3A3A">
-                <Image Source="pack://application:,,,/EntwineLLM;component/Resources/entwine-logo.jpg" 
-                       Stretch="Uniform" 
-                       Margin="10"/>
-            </Border>
-
             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                 <TextBlock Text="EntwineLLM" 
                            Foreground="White" 
