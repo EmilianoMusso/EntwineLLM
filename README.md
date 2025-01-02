@@ -1,6 +1,6 @@
 [![.github/workflows/build.yml](https://github.com/EmilianoMusso/EntwineLLM/actions/workflows/build.yml/badge.svg)](https://github.com/EmilianoMusso/EntwineLLM/actions/workflows/build.yml)
 <div style="text-align: center;">
-<img src="./src/EntwineLLM/Resources/entwine-template-title.png" width="400"/>
+	<img src="./src/EntwineLLM/Resources/entwine-template-title.png" width="400"/>
 </div>
 
 EntwineLLM is a free Visual Studio extension designed to leverage LLM capabilities to assist developers in writing code, without relying on third-party APIs. Instead, it uses an open LLM implementation installed locally on the user's PC, such as Ollama
