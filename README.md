@@ -19,7 +19,9 @@ After installing the EntwineLLM extension, its configuration options will be ava
 ![image](./src/EntwineLLM/Resources/vs-entwine-options.png)
 
 #### Using the extension
-After installing the extension, the following commands will be <span style="color:black;background:yellow">available in the `EntwineLLM` menu, placed in `Extensions` menu</span>:
+After installing the extension, the following commands will be available in the `EntwineLLM` menu, placed in `Extensions` menu:
+
+> Note: EntwineLLM Menu has been moved to Extensions menu since v1.9.0. Previous versions will show the following commands under Tools menu
 
 ![image](./src/EntwineLLM/Resources/vs-entwine-menu.png)
 
