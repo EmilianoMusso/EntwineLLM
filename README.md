@@ -19,15 +19,15 @@ After installing the EntwineLLM extension, its configuration options will be ava
 ![image](./src/EntwineLLM/Resources/vs-entwine-options.png)
 
 #### Using the extension
-After installing the extension, the following commands will be available in the `EntwineLLM` menu, placed in `Extensions` menu:
+After installing the extension, the following commands will be <span style="color:black;background:yellow">available in the `EntwineLLM` menu, placed in `Extensions` menu</span>:
 
 ![image](./src/EntwineLLM/Resources/vs-entwine-menu.png)
 
-* `Refactor code`: Select a block of code or text related to the function you wish to create, and the extension will call the LLM APIs available at the URL configured in the options. The extension will then present a window displaying the suggested code. If the user chooses to apply the suggestion, the new code will overwrite the originally selected text or code, seamlessly integrating the AI's assistance into the developer's workflow.
-* `Generate unit tests`: Select a block of code or function, and this command will generate unit tests covering all paths for the selection. The extension queries the LLM and displays the results in a separate window. If accepted, the generated tests can be applied directly to the codebase.
-* `Follow-up`: After generating code using EntwineLLM, users can utilize the Follow-up field to submit additional prompts that build upon the original code generation request. This feature allows for iterative refinement of the generated code, enabling users to clarify requirements, request modifications, or explore alternative implementations seamlessly within the same workflow. The follow-up prompt is sent to the LLM, which produces updated results tailored to the additional input provided. This functionality enhances the extension's flexibility and precision, ensuring that developers can achieve exactly the results they need.
-* `Document code`: Generate a markdown file with exhaustive documentation about selected code. The file can be saved as Markdown or exported as HTML.
-* `Code review`: The LLM will act as an experienced developer, and will spot issues, performance problems, and give a full review on selected code, with hints and comments about the strategies that can be applied to fix it.
+* <b>Refactor code</b>: Select a block of code or text related to the function you wish to create, and the extension will call the LLM APIs available at the URL configured in the options. The extension will then present a window displaying the suggested code. If the user chooses to apply the suggestion, the new code will overwrite the originally selected text or code, seamlessly integrating the AI's assistance into the developer's workflow.
+* <b>Generate unit tests</b>: Select a block of code or function, and this command will generate unit tests covering all paths for the selection. The extension queries the LLM and displays the results in a separate window. If accepted, the generated tests can be applied directly to the codebase.
+* <b>Follow-up</b>: After generating code using EntwineLLM, users can utilize the Follow-up field to submit additional prompts that build upon the original code generation request. This feature allows for iterative refinement of the generated code, enabling users to clarify requirements, request modifications, or explore alternative implementations seamlessly within the same workflow. The follow-up prompt is sent to the LLM, which produces updated results tailored to the additional input provided. This functionality enhances the extension's flexibility and precision, ensuring that developers can achieve exactly the results they need.
+* <b>Document code</b>: Generate a markdown file with exhaustive documentation about selected code. The file can be saved as Markdown or exported as HTML.
+* <b>Code review</b>: The LLM will act as an experienced developer, and will spot issues, performance problems, and give a full review on selected code, with hints and comments about the strategies that can be applied to fix it.
 
 ![image](./src/EntwineLLM/Resources/vs-entwine-document.png)
 
