@@ -1,42 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
   <Extern href="stdidcmd.h" />
   <Extern href="vsshlids.h" />
 
   <Commands package="guidEntwineLlmPackage">
+
+    <Groups>
+      <Group guid="guidEntwineLlmPackageCmdSet1" id="MainMenuGroup" />
+    </Groups>
+
+    <Menus>
+      <Menu guid="guidEntwineLlmPackageCmdSet1" id="MainEntwineMenu" type="Menu">
+        <Strings>
+          <ButtonText>EntwineLLM</ButtonText>
+        </Strings>
+      </Menu>
+    </Menus>
+
     <Buttons>
-      <Button guid="guidEntwineLlmPackageCmdSet1" id="cmdidRequestRefactor" priority="0x0100" type="Button">
-        <Parent guid="guidEntwineLlmPackageCmdSet1" id="MyMenuGroup" />
+      <Button guid="guidEntwineLlmPackageCmdSet1" id="cmdidRequestRefactor" type="Button">
         <Strings>
-          <ButtonText>Ask EntwineLlm</ButtonText>
+          <ButtonText>Refactor code</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidEntwineLlmPackageCmdSet1" id="cmdGenerateUnitTests" priority="0x0100" type="Button">
-        <Parent guid="guidEntwineLlmPackageCmdSet1" id="MyMenuGroup" />
+      <Button guid="guidEntwineLlmPackageCmdSet1" id="cmdGenerateUnitTests" type="Button">
         <Strings>
-          <ButtonText>Generate Unit Tests with EntwineLlm</ButtonText>
+          <ButtonText>Generate unit tests</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidEntwineLlmPackageCmdSet1" id="cmdDocumentCode" priority="0x0100" type="Button">
-        <Parent guid="guidEntwineLlmPackageCmdSet1" id="MyMenuGroup" />
+      <Button guid="guidEntwineLlmPackageCmdSet1" id="cmdDocumentCode" type="Button">
         <Strings>
-          <ButtonText>Document code with EntwineLlm</ButtonText>
+          <ButtonText>Document code</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidEntwineLlmPackageCmdSet1" id="cmdCodeReview" priority="0x0100" type="Button">
-        <Parent guid="guidEntwineLlmPackageCmdSet1" id="MyMenuGroup" />
+      <Button guid="guidEntwineLlmPackageCmdSet1" id="cmdCodeReview" type="Button">
         <Strings>
-          <ButtonText>Code review with EntwineLlm</ButtonText>
+          <ButtonText>Code review</ButtonText>
         </Strings>
       </Button>
     </Buttons>
-
-    <Groups>
-      <Group guid="guidEntwineLlmPackageCmdSet1" id="MyMenuGroup" priority="0x0600">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
-      </Group>
-    </Groups>
   </Commands>
+
+  <CommandPlacements>
+    <CommandPlacement guid="guidEntwineLlmPackageCmdSet1" id="MainEntwineMenu" priority="900">
+      <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidEntwineLlmPackageCmdSet1" id="MainMenuGroup" priority="0x0100">
+      <Parent guid="guidEntwineLlmPackageCmdSet1" id="MainEntwineMenu" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidEntwineLlmPackageCmdSet1" id="cmdidRequestRefactor" priority="0x0101">
+      <Parent guid="guidEntwineLlmPackageCmdSet1" id="MainMenuGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidEntwineLlmPackageCmdSet1" id="cmdGenerateUnitTests" priority="0x0102">
+      <Parent guid="guidEntwineLlmPackageCmdSet1" id="MainMenuGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidEntwineLlmPackageCmdSet1" id="cmdDocumentCode" priority="0x0103">
+      <Parent guid="guidEntwineLlmPackageCmdSet1" id="MainMenuGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidEntwineLlmPackageCmdSet1" id="cmdCodeReview" priority="0x0104">
+      <Parent guid="guidEntwineLlmPackageCmdSet1" id="MainMenuGroup" />
+    </CommandPlacement>
+  </CommandPlacements>
 
   <KeyBindings>
     <KeyBinding guid="guidEntwineLlmPackageCmdSet1" id="cmdidRequestRefactor" editor="guidTextEditor" key1="VK_F1" mod1="SHIFT" />
@@ -44,18 +71,20 @@
     <KeyBinding guid="guidEntwineLlmPackageCmdSet1" id="cmdDocumentCode" editor="guidTextEditor" key1="VK_F3" mod1="SHIFT" />
     <KeyBinding guid="guidEntwineLlmPackageCmdSet1" id="cmdCodeReview" editor="guidTextEditor" key1="VK_F4" mod1="SHIFT" />
   </KeyBindings>
-
+  
   <Symbols>
-    <GuidSymbol name="guidTextEditor" value="{8B382828-6202-11D1-8870-0000F87579D2}" />
+    <GuidSymbol name="guidSHLMainMenu" value="{D309F791-903F-11D0-9EFC-00A0C911004F}" />
     <GuidSymbol name="guidEntwineLlmPackage" value="{3c995b0e-1f37-4cef-9ac7-9771b3fb6162}" />
+    <GuidSymbol name="guidTextEditor" value="{8B382828-6202-11D1-8870-0000F87579D2}" />
 
     <GuidSymbol value="{714b6862-aad7-434e-8415-dd928555ba0e}" name="guidEntwineLlmPackageCmdSet1">
-      <IDSymbol value="4128" name="MyMenuGroup" />
+      <IDSymbol value="0x1020" name="MainEntwineMenu" />
+      <IDSymbol value="0x1021" name="MainMenuGroup" />
       <IDSymbol value="250" name="cmdidRequestRefactor" />
       <IDSymbol value="251" name="cmdGenerateUnitTests" />
       <IDSymbol value="252" name="cmdDocumentCode" />
       <IDSymbol value="253" name="cmdCodeReview" />
     </GuidSymbol>
-  
   </Symbols>
+
 </CommandTable>

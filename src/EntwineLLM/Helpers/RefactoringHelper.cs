@@ -63,7 +63,7 @@ namespace EntwineLlm
             {
                 var code = await _generalOptions.LlmServer.GetChatCompletionAsync(content);
 
-                const string pattern = "```csharp(.*?)```";
+                const string pattern = @"```(?:([a-zA-Z0-9+#]*)\n)?(.*?)```";
                 var matches = Regex.Matches(code, pattern, RegexOptions.Singleline);
 
                 if (MustReturnFullResponse(matches, codeType))
@@ -74,7 +74,7 @@ namespace EntwineLlm
                 var extractedCode = new StringBuilder();
                 foreach (Match match in matches)
                 {
-                    extractedCode.AppendLine(match.Groups[1].Value.Trim());
+                    extractedCode.AppendLine(match.Groups[2].Value.Trim());
                 }
 
                 return CodeSuggestionResponse.Success(codeType, extractedCode.ToString());
@@ -85,7 +85,7 @@ namespace EntwineLlm
             }
         }
 
-        private bool MustReturnFullResponse(MatchCollection matches, CodeType codeType)
+        private static bool MustReturnFullResponse(MatchCollection matches, CodeType codeType)
         {
             return matches.Count == 0 || codeType == CodeType.Documentation || codeType == CodeType.Review;
         }

@@ -1,0 +1,48 @@
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout code
+        with:
+          fetch-depth: 0
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v3.1.1
+        with:
+          versionSpec: '6.0.x'
+
+      - name: Determine version
+        uses: gittools/actions/gitversion/execute@v3.1.1
+
+      - run: |
+            echo "Full SemVer (env.fullSemVer) : ${{ env.fullSemVer }}"
+        name: Display GitVersion variables
+     
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
+     
+      - name: Restore NuGet packages
+        run: nuget restore EntwineLLM.sln
+
+      - name: Build EntwineLLM
+        run: msbuild EntwineLLM.sln /p:Configuration=Release /p:Version=${{ env.fullSemVer }}
+
+      - name: Publish artifacts
+        uses: actions/upload-artifact@v4
+        with:
+            name: entwinellm-${{ env.fullSemVer }}
+            retention-days: 5
+            path: |
+                **\bin\Release
+                **\obj\Release
