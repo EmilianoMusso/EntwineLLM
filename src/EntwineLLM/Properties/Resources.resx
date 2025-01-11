@@ -345,4 +345,7 @@ OUTPUT FORMAT:
 - Deliver the test code as a raw text output in the requested programming language.
 - Avoid any markdown, comments, or additional text.</value>
   </data>
+  <data name="SetLanguagePrompt" xml:space="preserve">
+    <value>It's mandatory to give answers to user in {LANGUAGE} language only. Other languages are strictly forbidden</value>
+  </data>
 </root>

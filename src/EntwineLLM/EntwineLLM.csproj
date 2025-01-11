@@ -60,6 +60,7 @@
     <Compile Include="Commands\GenerateTestsCommand.cs" />
     <Compile Include="Commands\Interfaces\IBaseCommand.cs" />
     <Compile Include="Commands\RequestRefactorCommand.cs" />
+    <Compile Include="Converters\LanguageConverter.cs" />
     <Compile Include="EntwineLLMOptions.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -166,6 +167,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

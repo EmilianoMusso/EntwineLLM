@@ -128,5 +128,14 @@ namespace EntwineLlm.Properties {
                 return ResourceManager.GetString("PromptForTests", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Cerca una stringa localizzata simile a It&apos;s mandatory to give answers to user in {LANGUAGE} language only. Other languages are strictly forbidden.
+        /// </summary>
+        internal static string SetLanguagePrompt {
+            get {
+                return ResourceManager.GetString("SetLanguagePrompt", resourceCulture);
+            }
+        }
     }
 }

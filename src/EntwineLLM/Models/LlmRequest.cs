@@ -14,7 +14,7 @@ namespace EntwineLlm.Models
         [JsonProperty(PropertyName = "messages")]
         public List<LlmMessage> Messages { get; set; }
 
-        public static LlmRequest Create(string model, string prompt, string userCode, string manualRequest = "")
+        public static LlmRequest Create(string model, string languagePrompt, string prompt, string userCode, string manualRequest = "")
         {
             var llmRequest = new LlmRequest()
             {
@@ -23,6 +23,7 @@ namespace EntwineLlm.Models
                 Messages =
                 [
                     LlmMessage.CreateAssistantMessage(prompt),
+                    LlmMessage.CreateAssistantMessage(languagePrompt),
                     LlmMessage.CreateUserMessage("[CODE]: " + userCode)
                 ]
             };

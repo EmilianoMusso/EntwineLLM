@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using EntwineLlm.Converters;
+using Microsoft.VisualStudio.Shell;
 using System;
 using System.ComponentModel;
 
@@ -16,6 +17,12 @@ namespace EntwineLlm.Models
         [Description("Sets timeout for HTTP requests")]
 
         public TimeSpan LlmRequestTimeOut { get; set; } = new TimeSpan(0, 10, 0);
+
+        [Category("Configuration")]
+        [DisplayName("LLM response language")]
+        [Description("Set the language in which the LLM must answer")]
+        [TypeConverter(typeof(LanguageConverter))]
+        public string Language { get; set; } = "English";
     }
 
     public class ModelsOptions : DialogPage

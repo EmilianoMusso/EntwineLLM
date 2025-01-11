@@ -51,13 +51,15 @@ namespace EntwineLlm
             using var client = new HttpClient();
             client.Timeout = _generalOptions.LlmRequestTimeOut;
 
+            var promptHelper = new PromptHelper(_generalOptions.Language);
+
             var prompt = codeType switch
             {
-                CodeType.Manual => PromptHelper.CreateForManualRequest(_modelsOptions.LlmFollowUp, methodCode, manualPrompt),
-                CodeType.Refactor => PromptHelper.CreateForRefactor(_modelsOptions.LlmRefactor, methodCode),
-                CodeType.Test => PromptHelper.CreateForTests(_modelsOptions.LlmUnitTests, methodCode),
-                CodeType.Documentation => PromptHelper.CreateForDocumentation(_modelsOptions.LlmDocumentation, methodCode),
-                CodeType.Review => PromptHelper.CreateForReview(_modelsOptions.LlmReview, methodCode),
+                CodeType.Manual => promptHelper.CreateForManualRequest(_modelsOptions.LlmFollowUp, methodCode, manualPrompt),
+                CodeType.Refactor => promptHelper.CreateForRefactor(_modelsOptions.LlmRefactor, methodCode),
+                CodeType.Test => promptHelper.CreateForTests(_modelsOptions.LlmUnitTests, methodCode),
+                CodeType.Documentation => promptHelper.CreateForDocumentation(_modelsOptions.LlmDocumentation, methodCode),
+                CodeType.Review => promptHelper.CreateForReview(_modelsOptions.LlmReview, methodCode),
                 _ => throw new ArgumentException("Invalid requested code type"),
             };
             var content = new StringContent(prompt, Encoding.UTF8, "application/json");
