@@ -1,7 +1,7 @@
 ### v1.10.0 Added answer language
 ---
 - It is now possibile to set a language in which the LLM must answer
-- Minor refactorings
+- Refactoring for LLM httpClient
 
 ### v1.9.0 Generic refactoring
 ---

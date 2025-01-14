@@ -1,4 +1,5 @@
-﻿using EntwineLlm.Enums;
+﻿using EntwineLlm.Clients;
+using EntwineLlm.Enums;
 using EntwineLlm.Helpers;
 using EntwineLlm.Models;
 using Microsoft.VisualStudio.Shell;
@@ -48,9 +49,6 @@ namespace EntwineLlm
 
         private async Task<CodeSuggestionResponse> GetCodeSuggestionsAsync(string methodCode, CodeType codeType, string manualPrompt)
         {
-            using var client = new HttpClient();
-            client.Timeout = _generalOptions.LlmRequestTimeOut;
-
             var promptHelper = new PromptHelper(_generalOptions.Language);
 
             var prompt = codeType switch
@@ -62,44 +60,9 @@ namespace EntwineLlm
                 CodeType.Review => promptHelper.CreateForReview(_modelsOptions.LlmReview, methodCode),
                 _ => throw new ArgumentException("Invalid requested code type"),
             };
-            var content = new StringContent(prompt, Encoding.UTF8, "application/json");
 
-            try
-            {
-                var response = await client.PostAsync($"{_generalOptions.LlmUrl}/api/chat", content);
-                response.EnsureSuccessStatusCode();
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var code = JObject
-                    .Parse(responseContent)["message"]["content"]
-                    .ToString()
-                    .Replace("\r\n", Environment.NewLine);
-
-                const string pattern = @"```(?:([a-zA-Z0-9+#]*)\n)?(.*?)```";
-                var matches = Regex.Matches(code, pattern, RegexOptions.Singleline);
-
-                if (MustReturnFullResponse(matches, codeType))
-                {
-                    return CodeSuggestionResponse.Success(codeType, code);
-                }
-
-                var extractedCode = new StringBuilder();
-                foreach (Match match in matches)
-                {
-                    extractedCode.AppendLine(match.Groups[2].Value.Trim());
-                }
-
-                return CodeSuggestionResponse.Success(codeType, extractedCode.ToString());
-            }
-            catch
-            {
-                return CodeSuggestionResponse.Failure();
-            }
-        }
-
-        private static bool MustReturnFullResponse(MatchCollection matches, CodeType codeType)
-        {
-            return matches.Count == 0 || codeType == CodeType.Documentation || codeType == CodeType.Review;
+            using var llmClient = new LlmClient(_generalOptions.LlmUrl, _generalOptions.LlmRequestTimeOut);
+            return await llmClient.GetCodeSuggestionsAsync(codeType, prompt);
         }
 
         private async Task ShowSuggestionWindowAsync(string suggestion, string activeDocumentPath)

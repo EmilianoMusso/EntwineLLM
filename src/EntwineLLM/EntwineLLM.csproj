@@ -52,6 +52,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Clients\LlmClient.cs" />
     <Compile Include="CommandsMenu.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\CodeReviewCommand.cs" />
