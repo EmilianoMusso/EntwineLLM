@@ -1,4 +1,5 @@
-﻿using EntwineLlm.Enums;
+﻿using EntwineLlm.Clients.Interfacs;
+using EntwineLlm.Enums;
 using EntwineLlm.Models;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,19 +12,19 @@ using System.Threading.Tasks;
 
 namespace EntwineLlm.Clients
 {
-    internal class LlmClient : IDisposable
+    internal class OllamaClient : ILlmClient, IDisposable
     {
         private string _baseUrl;
         private TimeSpan _timeOut;
         private bool disposedValue;
 
-        public LlmClient(GeneralOptions options)
+        public OllamaClient(GeneralOptions options)
         {
             _baseUrl = options.LlmUrl;
             _timeOut = options.LlmRequestTimeOut;
         }
 
-        public LlmClient(string baseUrl, TimeSpan timeOut)
+        public OllamaClient(string baseUrl, TimeSpan timeOut)
         {
             _baseUrl = baseUrl;
             _timeOut = timeOut;
