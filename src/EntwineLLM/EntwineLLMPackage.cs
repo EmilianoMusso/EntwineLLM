@@ -1,4 +1,5 @@
-﻿using EntwineLlm.Commands.Interfaces;
+﻿using EntwineLlm.Clients;
+using EntwineLlm.Commands.Interfaces;
 using EntwineLlm.Models;
 using Microsoft.VisualStudio.Shell;
 using System;
@@ -16,16 +17,20 @@ namespace EntwineLlm
     [ProvideToolWindow(typeof(MarkdownViewerWindow))]
     [ProvideOptionPage(typeof(GeneralOptions), "EntwineLlm", "Configuration", 0, 0, true)]
     [ProvideOptionPage(typeof(ModelsOptions), "EntwineLlm", "Models", 0, 0, true)]
-    public sealed class EntwineLlmPackage : AsyncPackage
+    internal sealed class EntwineLlmPackage : AsyncPackage
     {
         public const string PackageGuidString = "3c995b0e-1f37-4cef-9ac7-9771b3fb6162";
 
         public static AsyncPackage Instance { get; set; }
+        public static LlmClient LlmClient { get; set; }
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             Instance = this;
+
+            var generalOptions = this.GetDialogPage(typeof(GeneralOptions)) as GeneralOptions;
+            LlmClient = new LlmClient(generalOptions);
 
             var commandsMenu = new CommandsMenu();
             await commandsMenu.InitializeAsync(this);

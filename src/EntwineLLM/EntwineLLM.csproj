@@ -62,6 +62,7 @@
     <Compile Include="Commands\Interfaces\IBaseCommand.cs" />
     <Compile Include="Commands\RequestRefactorCommand.cs" />
     <Compile Include="Converters\LanguageConverter.cs" />
+    <Compile Include="Converters\LlmModelConverter.cs" />
     <Compile Include="EntwineLLMOptions.cs">
       <SubType>Component</SubType>
     </Compile>
