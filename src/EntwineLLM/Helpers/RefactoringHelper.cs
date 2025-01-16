@@ -20,15 +20,15 @@ namespace EntwineLlm
             _modelsOptions = package.GetDialogPage(typeof(ModelsOptions)) as ModelsOptions;
         }
 
-        public async Task RequestCodeSuggestionsAsync(
+        public async Task RequestSuggestionsAsync(
             string methodCode,
             string activeDocumentPath,
             CodeType codeType,
             string manualPrompt = "")
         {
-            var suggestion = await GetCodeSuggestionsAsync(methodCode, codeType, manualPrompt);
+            var suggestion = await GetSuggestionsAsync(methodCode, codeType, manualPrompt);
 
-            switch (suggestion.Type)
+            switch (codeType)
             {
                 case CodeType.Documentation:
                 case CodeType.Review:
@@ -41,7 +41,7 @@ namespace EntwineLlm
             }
         }
 
-        private async Task<CodeSuggestionResponse> GetCodeSuggestionsAsync(string methodCode, CodeType codeType, string manualPrompt)
+        private async Task<CodeSuggestionResponse> GetSuggestionsAsync(string methodCode, CodeType codeType, string manualPrompt)
         {
             var promptHelper = new PromptHelper(_generalOptions.Language);
 

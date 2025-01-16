@@ -1,6 +1,5 @@
 ﻿using EntwineLlm.Enums;
 using EntwineLlm.Helpers;
-using ICSharpCode.AvalonEdit;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.Threading.Tasks;
@@ -14,7 +13,6 @@ namespace EntwineLlm.Commands
 
         public string ActiveDocumentPath;
         public TextBox ManualPromptTextBox;
-        public TextEditor SuggestedCodeEditor;
 
         public BaseCommand(AsyncPackage package)
         {
@@ -52,11 +50,9 @@ namespace EntwineLlm.Commands
             var progressBarHelper = new ProgressBarHelper(ServiceProvider.GlobalProvider);
             progressBarHelper.StartIndeterminateDialog(message);
 
-            var methodCode = SuggestedCodeEditor != null ?
-                SuggestedCodeEditor.Text
-                : GetCurrentMethodCode();
+            var methodCode = GetCurrentMethodCode();
 
-            if (string.IsNullOrEmpty(methodCode))
+            if (NoProcessableCodeDetected(manualPrompt, methodCode))
             {
                 progressBarHelper.StopDialog();
                 WindowHelper.MsgBox("It is necessary to select the source code to be processed from the editor");
@@ -64,9 +60,14 @@ namespace EntwineLlm.Commands
             }
 
             var refactoringHelper = new RefactoringHelper(package);
-            await refactoringHelper.RequestCodeSuggestionsAsync(methodCode, ActiveDocumentPath, codeType, manualPrompt);
+            await refactoringHelper.RequestSuggestionsAsync(methodCode, ActiveDocumentPath, codeType, manualPrompt);
 
             progressBarHelper.StopDialog();
+        }
+
+        private static bool NoProcessableCodeDetected(string manualPrompt, string methodCode)
+        {
+            return string.IsNullOrEmpty(methodCode) && string.IsNullOrEmpty(manualPrompt);
         }
     }
 }

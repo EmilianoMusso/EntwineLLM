@@ -1,4 +1,5 @@
-﻿using Markdig;
+﻿using EntwineLlm.Helpers;
+using Markdig;
 using Microsoft.Win32;
 using System;
 using System.IO;
@@ -92,6 +93,34 @@ namespace EntwineLlm
             {
                 codeColumn.Width = new GridLength(0);
             }
+        }
+
+        private void FollowupBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key != System.Windows.Input.Key.Enter)
+            {
+                return;
+            }
+
+            BtnFollowUp_Click(sender, e);
+        }
+
+        private void BtnFollowUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(FollowupBox.Text))
+            {
+                WindowHelper.MsgBox("A follow-up prompt must be set to proceed");
+                return;
+            }
+
+            var manualPromptCommand = new ManualPromptCommand(EntwineLlmPackage.Instance)
+            {
+                ManualPromptTextBox = FollowupBox
+            };
+
+            manualPromptCommand.Execute(sender, e);
+
+            FollowupBox.Text = "";
         }
     }
 }
