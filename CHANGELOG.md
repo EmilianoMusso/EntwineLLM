@@ -1,3 +1,9 @@
+### v1.11.0 Added answer language
+---
+- LLMs are now selectable by querying Ollama APIs
+- Markdown views can now use follow-up functions
+- Minor refactoring
+
 ### v1.10.0 Added answer language
 ---
 - It is now possibile to set a language in which the LLM must answer
