@@ -3,11 +3,7 @@ using EntwineLlm.Enums;
 using EntwineLlm.Helpers;
 using EntwineLlm.Models;
 using Microsoft.VisualStudio.Shell;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
@@ -33,6 +29,12 @@ namespace EntwineLlm
             string manualPrompt = "")
         {
             var suggestion = await GetCodeSuggestionsAsync(methodCode, codeType, manualPrompt);
+
+            if (suggestion.Type == CodeType.Undefined)
+            {
+                WindowHelper.ErrorBox("There was an error during LLM query. Please check if LLM APIs are reachable");
+                return;
+            }
 
             switch (suggestion.Type)
             {
