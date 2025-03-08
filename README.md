@@ -19,6 +19,7 @@ To use the EntwineLLM extension, you need to have a local or Docker-hosted open 
 After installing the EntwineLLM extension, its configuration options will be available in the Visual Studio Options menu. These options allow users to specify the base URL of the locally installed LLM, select the LLM model to use for each specific extension command, and configure the HTTP request timeout settings for communication with the LLM, along with the preferred language the LLM must use when answering.
 
 ![image](./src/EntwineLLM/Resources/vs-entwine-configuration.png)
+![image](./src/EntwineLLM/Resources/vs-entwine-configuration-2.png)
 
 ![image](./src/EntwineLLM/Resources/vs-entwine-options.png)
 
