@@ -1,12 +1,9 @@
-﻿using EntwineLlm.Enums;
+﻿using EntwineLlm.Clients;
+using EntwineLlm.Enums;
 using EntwineLlm.Helpers;
 using EntwineLlm.Models;
 using Microsoft.VisualStudio.Shell;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
@@ -33,6 +30,12 @@ namespace EntwineLlm
         {
             var suggestion = await GetCodeSuggestionsAsync(methodCode, codeType, manualPrompt);
 
+            if (suggestion.Type == CodeType.Undefined)
+            {
+                WindowHelper.ErrorBox("There was an error during LLM query. Please check if LLM APIs are reachable");
+                return;
+            }
+
             switch (suggestion.Type)
             {
                 case CodeType.Documentation:
@@ -48,46 +51,20 @@ namespace EntwineLlm
 
         private async Task<CodeSuggestionResponse> GetCodeSuggestionsAsync(string methodCode, CodeType codeType, string manualPrompt)
         {
+            var promptHelper = new PromptHelper(_generalOptions.Language);
+
             var prompt = codeType switch
             {
-                CodeType.Manual => PromptHelper.CreateForManualRequest(_modelsOptions.LlmFollowUp, methodCode, manualPrompt),
-                CodeType.Refactor => PromptHelper.CreateForRefactor(_modelsOptions.LlmRefactor, methodCode),
-                CodeType.Test => PromptHelper.CreateForTests(_modelsOptions.LlmUnitTests, methodCode),
-                CodeType.Documentation => PromptHelper.CreateForDocumentation(_modelsOptions.LlmDocumentation, methodCode),
-                CodeType.Review => PromptHelper.CreateForReview(_modelsOptions.LlmReview, methodCode),
+                CodeType.Manual => promptHelper.CreateForManualRequest(_modelsOptions.LlmFollowUp, methodCode, manualPrompt),
+                CodeType.Refactor => promptHelper.CreateForRefactor(_modelsOptions.LlmRefactor, methodCode),
+                CodeType.Test => promptHelper.CreateForTests(_modelsOptions.LlmUnitTests, methodCode),
+                CodeType.Documentation => promptHelper.CreateForDocumentation(_modelsOptions.LlmDocumentation, methodCode),
+                CodeType.Review => promptHelper.CreateForReview(_modelsOptions.LlmReview, methodCode),
                 _ => throw new ArgumentException("Invalid requested code type"),
             };
-            var content = new StringContent(prompt, Encoding.UTF8, "application/json");
 
-            try
-            {
-                var code = await _generalOptions.LlmServer.GetChatCompletionAsync(content);
-
-                const string pattern = @"```(?:([a-zA-Z0-9+#]*)\n)?(.*?)```";
-                var matches = Regex.Matches(code, pattern, RegexOptions.Singleline);
-
-                if (MustReturnFullResponse(matches, codeType))
-                {
-                    return CodeSuggestionResponse.Success(codeType, code);
-                }
-
-                var extractedCode = new StringBuilder();
-                foreach (Match match in matches)
-                {
-                    extractedCode.AppendLine(match.Groups[2].Value.Trim());
-                }
-
-                return CodeSuggestionResponse.Success(codeType, extractedCode.ToString());
-            }
-            catch
-            {
-                return CodeSuggestionResponse.Failure();
-            }
-        }
-
-        private static bool MustReturnFullResponse(MatchCollection matches, CodeType codeType)
-        {
-            return matches.Count == 0 || codeType == CodeType.Documentation || codeType == CodeType.Review;
+            using var llmClient = new LlmClient(_generalOptions.LlmServer);
+            return await llmClient.GetCodeSuggestionsAsync(codeType, prompt);
         }
 
         private async Task ShowSuggestionWindowAsync(string suggestion, string activeDocumentPath)

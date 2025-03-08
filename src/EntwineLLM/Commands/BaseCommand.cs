@@ -3,6 +3,7 @@ using EntwineLlm.Helpers;
 using ICSharpCode.AvalonEdit;
 using Microsoft.VisualStudio.Shell;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -36,13 +37,25 @@ namespace EntwineLlm.Commands
                 return string.Empty;
             }
 
+            ActiveDocumentPath = dte.ActiveDocument.FullName;
+
             if (activeDocument.Selection is not EnvDTE.TextSelection textSelection)
             {
                 return string.Empty;
             }
 
-            ActiveDocumentPath = dte.ActiveDocument.FullName;
-            return textSelection.Text;
+            if (string.IsNullOrWhiteSpace(textSelection.Text))
+            {
+                textSelection.SelectLine();
+                return textSelection.Text.Trim();
+            }
+
+            var selectedLines = textSelection.Text
+                .Split('\r', '\n')
+                .Select(l => l.Trim())
+                .Where(l => !string.IsNullOrEmpty(l));
+
+            return string.Join("\r\n", selectedLines);
         }
 
         public async Task PerformRefactoringSuggestionAsync(CodeType codeType, string manualPrompt = "")
@@ -59,7 +72,7 @@ namespace EntwineLlm.Commands
             if (string.IsNullOrEmpty(methodCode))
             {
                 progressBarHelper.StopDialog();
-                WindowHelper.MsgBox("It is necessary to select the source code to be processed from the editor");
+                WindowHelper.WarningBox("It is necessary to select the source code to be processed from the editor");
                 return;
             }
 

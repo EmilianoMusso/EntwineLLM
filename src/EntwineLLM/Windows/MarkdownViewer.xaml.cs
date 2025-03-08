@@ -32,6 +32,7 @@ namespace EntwineLlm
             string htmlWithStyle = $@"
         <html>
         <head>
+            <meta charset='UTF-8'>
             <style>
                 body {{ background-color: #2A2A2A; color: #F0F0F0; font-family: Arial, sans-serif; }}
                 h1, h2, h3 {{ color: #569CD6; }}

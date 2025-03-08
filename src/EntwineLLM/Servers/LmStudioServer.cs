@@ -1,32 +1,38 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using EntwineLlm.Servers.Abstractions;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace EntwineLlm.Models
+namespace EntwineLlm.Servers
 {
-    public class LMStudioServer() : LLMServerBase("LM Studio", new Uri("http://localhost:1234"))
+    public class LMStudioServer() : LlmServer("LM Studio", "http://localhost:1234")
     {
         public override async Task<string[]> GetModelListAsync()
         {
-            List<string> modelList = [];
-            using var client = new HttpClient();
-            client.Timeout = RequestTimeOut;
-
-            var response = await client.GetAsync($"{BaseUrl}v1/models");
-            response.EnsureSuccessStatusCode();
-
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var models = JObject.Parse(responseContent)["data"];
-            foreach (var model in models)
+            try
             {
-                modelList.Add(model["id"].ToString());
-            }
+                List<string> modelList = [];
+                using var client = new HttpClient();
+                client.Timeout = RequestTimeOut;
 
-            return [.. modelList];
+                var response = await client.GetAsync($"{BaseUrl}/v1/models");
+                response.EnsureSuccessStatusCode();
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var models = JObject.Parse(responseContent)["data"];
+                foreach (var model in models)
+                {
+                    modelList.Add(model["id"].ToString());
+                }
+
+                return [.. modelList];
+            }
+            catch
+            {
+                return [];
+            }
         }
 
         public override async Task<string> GetChatCompletionAsync(StringContent content)
@@ -34,13 +40,15 @@ namespace EntwineLlm.Models
             using var client = new HttpClient();
             client.Timeout = RequestTimeOut;
 
-            var response = await client.PostAsync($"{BaseUrl}v1/chat/completions", content);
+            var response = await client.PostAsync($"{BaseUrl}/v1/chat/completions", content);
             response.EnsureSuccessStatusCode();
             var responseContent = await response.Content.ReadAsStringAsync();
             var choices = JObject.Parse(responseContent)["choices"];
-            if (choices.Any())
-                return choices[0]["message"]["content"].ToString();
-            return string.Empty;
+            if (!choices.Any())
+            {
+                return string.Empty;
+            }
+            return choices[0]["message"]["content"].ToString();
         }
     }
 }

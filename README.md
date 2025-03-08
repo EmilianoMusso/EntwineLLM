@@ -14,9 +14,13 @@ To use the EntwineLLM extension, you need to have a local or Docker-hosted open 
 * [Ollama models](https://ollama.com/search)
 
 #### Setup
-After installing the EntwineLLM extension, its configuration options will be available in the Visual Studio Options menu. These options allow users to specify the base URL of the locally installed LLM, select the LLM model to use for each specific extension command (install them first), and configure the HTTP request timeout settings for communication with the LLM. These settings provide flexibility in customizing the behavior of the extension to match the user's environment and preferences.
+After installing the EntwineLLM extension, its configuration options will be available in the Visual Studio Options menu. These options allow users to specify the base URL of the locally installed LLM, select the LLM model to use for each specific extension command (install them first), and configure the HTTP request timeout settings for communication with the LLM, along with the preferred language the LLM must use when answering.
+
+![image](./src/EntwineLLM/Resources/vs-entwine-configuration.png)
 
 ![image](./src/EntwineLLM/Resources/vs-entwine-options.png)
+
+These settings provide flexibility in customizing the behavior of the extension to match the user's environment and preferences.
 
 #### Using the extension
 After installing the extension, the following commands will be available in the `EntwineLLM` menu, placed in `Extensions` menu:

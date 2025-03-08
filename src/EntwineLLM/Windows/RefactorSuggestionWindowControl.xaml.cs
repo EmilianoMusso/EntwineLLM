@@ -120,7 +120,7 @@ namespace EntwineLlm
         {
             if (string.IsNullOrEmpty(FollowupBox.Text))
             {
-                WindowHelper.MsgBox("A follow-up prompt must be set to proceed");
+                WindowHelper.WarningBox("A follow-up prompt must be set to proceed");
                 return;
             }
 

@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using EntwineLlm.Converters;
+using EntwineLlm.Servers;
+using EntwineLlm.Servers.Abstractions;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Threading;
 using System;
 using System.ComponentModel;
@@ -7,22 +10,20 @@ namespace EntwineLlm.Models
 {
     public class GeneralOptions : DialogPage
     {
+        private static LlmServer currentServer;
+        public static LlmServer CurrentServer => currentServer ??= new OllamaServer();
 
-        // TODO : Decide if it's better to use a static field or not
-        private static LLMServerBase currentServer;
-        public static LLMServerBase CurrentServer => currentServer ??= new OllamaServer();
-
-        private LLMServerBase llmServer = currentServer;
+        private LlmServer llmServer;
         [Category("Configuration")]
         [DisplayName("Select LLM Server")]
         [Description("Choose from available LLM Server")]
         [TypeConverter(typeof(LlmServerConverter))]
-        public LLMServerBase LlmServer
+        public LlmServer LlmServer
         {
             get => llmServer;
             set
             {
-                llmServer = value;
+                llmServer = value ?? currentServer;
                 currentServer = value;
                 LlmUrl = value.BaseUrl;
                 LlmRequestTimeOut = value.RequestTimeOut;
@@ -32,20 +33,27 @@ namespace EntwineLlm.Models
         [Category("Configuration")]
         [DisplayName("Large Language Model Base Url")]
         [Description("Sets the base URL for local LLM")]
-        public Uri LlmUrl
+        public string LlmUrl
         {
             get => LlmServer?.BaseUrl;
             set => LlmServer.BaseUrl = value;
         }
 
-            [Category("Configuration")]
+        [Category("Configuration")]
         [DisplayName("Requests timeout")]
         [Description("Sets timeout for HTTP requests")]
+
         public TimeSpan LlmRequestTimeOut
         {
             get => LlmServer?.RequestTimeOut ?? new TimeSpan(0, 10, 0);
             set => LlmServer.RequestTimeOut = value;
         }
+
+        [Category("Configuration")]
+        [DisplayName("LLM response language")]
+        [Description("Set the language in which the LLM must answer")]
+        [TypeConverter(typeof(LanguageConverter))]
+        public string Language { get; set; } = "English";
     }
 
     public class ModelsOptions : DialogPage

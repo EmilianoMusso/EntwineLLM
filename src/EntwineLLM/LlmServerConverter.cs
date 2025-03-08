@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntwineLlm.Servers.Abstractions;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -8,9 +9,9 @@ namespace EntwineLlm.Models
 {
     public class LlmServerConverter : TypeConverter
         {
-            private static readonly LLMServerBase[] Servers = [.. Assembly.GetExecutingAssembly().GetTypes()
-                .Where(type => type.IsSubclassOf(typeof(LLMServerBase)) && !type.IsAbstract)
-                .Select(type => (LLMServerBase)Activator.CreateInstance(type))];
+            private static readonly LlmServer[] Servers = [.. Assembly.GetExecutingAssembly().GetTypes()
+                .Where(type => type.IsSubclassOf(typeof(LlmServer)) && !type.IsAbstract)
+                .Select(type => (LlmServer)Activator.CreateInstance(type))];
 
             public override bool GetStandardValuesSupported(ITypeDescriptorContext context) => true;
 
@@ -23,7 +24,7 @@ namespace EntwineLlm.Models
 
             public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
                 => destinationType == typeof(string)
-                ? ((LLMServerBase)value).Name
+                ? ((LlmServer)value).Name
                 : base.ConvertTo(context, culture, value, destinationType);
 
             public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
