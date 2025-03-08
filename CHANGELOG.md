@@ -1,3 +1,7 @@
+### v1.12.0 Added LMStudio support
+- It is now possibile to switch between Ollama and LMStudio
+- Minor refactoring
+
 ### v1.11.0 Added answer language
 ---
 - LLMs are now selectable by querying Ollama APIs

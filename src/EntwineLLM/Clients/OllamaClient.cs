@@ -1,10 +1,7 @@
-﻿using EntwineLlm.Clients.Interfacs;
-using EntwineLlm.Enums;
+﻿using EntwineLlm.Enums;
 using EntwineLlm.Models;
-using Newtonsoft.Json.Linq;
+using EntwineLlm.Servers.Abstractions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -12,87 +9,23 @@ using System.Threading.Tasks;
 
 namespace EntwineLlm.Clients
 {
-    internal class OllamaClient : ILlmClient, IDisposable
+    internal class LlmClient : IDisposable
     {
-        private string _baseUrl;
-        private TimeSpan _timeOut;
+        private readonly LlmServer _server;
         private bool disposedValue;
 
-        public OllamaClient(GeneralOptions options)
+        public LlmClient(LlmServer server)
         {
-            _baseUrl = options.LlmUrl;
-            _timeOut = options.LlmRequestTimeOut;
-        }
-
-        public OllamaClient(string baseUrl, TimeSpan timeOut)
-        {
-            _baseUrl = baseUrl;
-            _timeOut = timeOut;
-        }
-
-        public void SetBaseUrl(string baseUrl)
-        {
-            _baseUrl = baseUrl;
-        }
-
-        public string GetBaseUrl()
-        {
-            return _baseUrl;
-        }
-
-        public void SetTimeOut(TimeSpan timeOut)
-        {
-            _timeOut = timeOut;
-        }
-
-        public TimeSpan GetTimeOut()
-        {
-            return _timeOut;
-        }
-
-        public async Task<string[]> GetModelListAsync()
-        {
-            using var client = new HttpClient();
-            client.Timeout = _timeOut;
-
-            try
-            {
-                List<string> modelList = [];
-                var response = await client.GetAsync($"{_baseUrl}/api/tags");
-                response.EnsureSuccessStatusCode();
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var models = JObject.Parse(responseContent)["models"];
-                foreach (var model in models)
-                {
-                    modelList.Add(model["name"].ToString());
-                }
-
-                return [.. modelList];
-            }
-            catch
-            {
-                return Enumerable.Empty<string>().ToArray();
-            }
+            _server = server;
         }
 
         public async Task<CodeSuggestionResponse> GetCodeSuggestionsAsync(CodeType codeType, string prompt)
         {
-            using var client = new HttpClient();
-            client.Timeout = _timeOut;
-
             var content = new StringContent(prompt, Encoding.UTF8, "application/json");
 
             try
             {
-                var response = await client.PostAsync($"{_baseUrl}/api/chat", content);
-                response.EnsureSuccessStatusCode();
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var code = JObject
-                    .Parse(responseContent)["message"]["content"]
-                    .ToString()
-                    .Replace("\r\n", Environment.NewLine);
+                var code = await _server.GetChatCompletionAsync(content);
 
                 const string pattern = @"```(?:([a-zA-Z0-9+#]*)\n)?(.*?)```";
                 var matches = Regex.Matches(code, pattern, RegexOptions.Singleline);

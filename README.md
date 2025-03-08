@@ -7,11 +7,13 @@ EntwineLLM is a free Visual Studio extension designed to leverage LLM capabiliti
 
 #### Prerequisites
 
-To use the EntwineLLM extension, you need to have a local or Docker-hosted open LLM implementation, such as Ollama. The LLM must be running and expose an accessible API endpoint that the extension can connect to. Ensure that the API is properly configured and reachable from within Visual Studio to enable seamless integration with the extension.
+To use the EntwineLLM extension, you need to have a local or Docker-hosted open LLM implementation, such as Ollama or LMStudio. The LLM must be running and expose an accessible API endpoint that the extension can connect to. Ensure that the API is properly configured and reachable from within Visual Studio to enable seamless integration with the extension.
 
 *Resources*:
 * [Ollama download for Windows](https://ollama.com/download/windows)
 * [Ollama models](https://ollama.com/search)
+* [LMStudio download for Windows](https://lmstudio.ai/)
+* [LMStudio models](https://lmstudio.ai/models)
 
 #### Setup
 After installing the EntwineLLM extension, its configuration options will be available in the Visual Studio Options menu. These options allow users to specify the base URL of the locally installed LLM, select the LLM model to use for each specific extension command, and configure the HTTP request timeout settings for communication with the LLM, along with the preferred language the LLM must use when answering.

@@ -1,5 +1,8 @@
 ﻿using EntwineLlm.Converters;
+using EntwineLlm.Servers;
+using EntwineLlm.Servers.Abstractions;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Threading;
 using System;
 using System.ComponentModel;
 
@@ -7,19 +10,33 @@ namespace EntwineLlm.Models
 {
     public class GeneralOptions : DialogPage
     {
+        private static LlmServer currentServer;
+        public static LlmServer CurrentServer => currentServer ??= new OllamaServer();
+
+        private LlmServer llmServer;
+        [Category("Configuration")]
+        [DisplayName("Select LLM Server")]
+        [Description("Choose from available LLM Server")]
+        [TypeConverter(typeof(LlmServerConverter))]
+        public LlmServer LlmServer
+        {
+            get => llmServer;
+            set
+            {
+                llmServer = value ?? currentServer;
+                currentServer = value;
+                LlmUrl = value.BaseUrl;
+                LlmRequestTimeOut = value.RequestTimeOut;
+            }
+        }
+
         [Category("Configuration")]
         [DisplayName("Large Language Model Base Url")]
         [Description("Sets the base URL for local LLM")]
         public string LlmUrl
         {
-            get
-            {
-                return EntwineLlmPackage.LlmClient?.GetBaseUrl() ?? "http://localhost:11434";
-            }
-            set
-            {
-                EntwineLlmPackage.LlmClient?.SetBaseUrl(value);
-            }
+            get => LlmServer?.BaseUrl;
+            set => LlmServer.BaseUrl = value;
         }
 
         [Category("Configuration")]
@@ -28,14 +45,8 @@ namespace EntwineLlm.Models
 
         public TimeSpan LlmRequestTimeOut
         {
-            get
-            {
-                return EntwineLlmPackage.LlmClient?.GetTimeOut() ?? new TimeSpan(0, 10, 0);
-            }
-            set
-            {
-                EntwineLlmPackage.LlmClient?.SetTimeOut(value);
-            }
+            get => LlmServer?.RequestTimeOut ?? new TimeSpan(0, 10, 0);
+            set => LlmServer.RequestTimeOut = value;
         }
 
         [Category("Configuration")]
@@ -47,6 +58,16 @@ namespace EntwineLlm.Models
 
     public class ModelsOptions : DialogPage
     {
+        public class LlmModelConverter : StringConverter
+        {
+            public override bool GetStandardValuesSupported(ITypeDescriptorContext context) => true;
+
+            public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+                => new(ThreadHelper.JoinableTaskFactory.Run(async () => await GeneralOptions.CurrentServer?.GetModelListAsync()));
+
+            public override bool GetStandardValuesExclusive(ITypeDescriptorContext context) => true;
+        }
+
         [Category("Models")]
         [DisplayName("Refactor queries")]
         [Description("Sets the model to be used when querying LLM for refactor")]

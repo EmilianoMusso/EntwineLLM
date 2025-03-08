@@ -1,9 +1,11 @@
-﻿using EntwineLlm.Enums;
+﻿using EntwineLlm.Clients;
+using EntwineLlm.Enums;
 using EntwineLlm.Helpers;
 using EntwineLlm.Models;
 using Microsoft.VisualStudio.Shell;
 using System;
 using System.Threading.Tasks;
+using Task = System.Threading.Tasks.Task;
 
 namespace EntwineLlm
 {
@@ -20,15 +22,21 @@ namespace EntwineLlm
             _modelsOptions = package.GetDialogPage(typeof(ModelsOptions)) as ModelsOptions;
         }
 
-        public async Task RequestSuggestionsAsync(
+        public async Task RequestCodeSuggestionsAsync(
             string methodCode,
             string activeDocumentPath,
             CodeType codeType,
             string manualPrompt = "")
         {
-            var suggestion = await GetSuggestionsAsync(methodCode, codeType, manualPrompt);
+            var suggestion = await GetCodeSuggestionsAsync(methodCode, codeType, manualPrompt);
 
-            switch (codeType)
+            if (suggestion.Type == CodeType.Undefined)
+            {
+                WindowHelper.ErrorBox("There was an error during LLM query. Please check if LLM APIs are reachable");
+                return;
+            }
+
+            switch (suggestion.Type)
             {
                 case CodeType.Documentation:
                 case CodeType.Review:
@@ -41,7 +49,7 @@ namespace EntwineLlm
             }
         }
 
-        private async Task<CodeSuggestionResponse> GetSuggestionsAsync(string methodCode, CodeType codeType, string manualPrompt)
+        private async Task<CodeSuggestionResponse> GetCodeSuggestionsAsync(string methodCode, CodeType codeType, string manualPrompt)
         {
             var promptHelper = new PromptHelper(_generalOptions.Language);
 
@@ -55,7 +63,8 @@ namespace EntwineLlm
                 _ => throw new ArgumentException("Invalid requested code type"),
             };
 
-            return await EntwineLlmPackage.LlmClient.GetCodeSuggestionsAsync(codeType, prompt);
+            using var llmClient = new LlmClient(_generalOptions.LlmServer);
+            return await llmClient.GetCodeSuggestionsAsync(codeType, prompt);
         }
 
         private async Task ShowSuggestionWindowAsync(string suggestion, string activeDocumentPath)

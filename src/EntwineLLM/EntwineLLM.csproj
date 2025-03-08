@@ -63,7 +63,6 @@
     <Compile Include="Commands\Interfaces\IBaseCommand.cs" />
     <Compile Include="Commands\RequestRefactorCommand.cs" />
     <Compile Include="Converters\LanguageConverter.cs" />
-    <Compile Include="Converters\LlmModelConverter.cs" />
     <Compile Include="EntwineLLMOptions.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -74,8 +73,12 @@
     <Compile Include="Helpers\PromptHelper.cs" />
     <Compile Include="Helpers\RefactoringHelper.cs" />
     <Compile Include="Helpers\WindowHelper.cs" />
+    <Compile Include="LlmServerConverter.cs" />
+    <Compile Include="Servers\Abstractions\LlmServer.cs" />
+    <Compile Include="Servers\LMStudioServer.cs" />
     <Compile Include="Models\CodeSuggestionResponse.cs" />
     <Compile Include="Models\LlmRequest.cs" />
+    <Compile Include="Servers\OllamaServer.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -108,6 +111,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
@@ -164,6 +168,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="Resources\vs-entwine-configuration-2.png" />
+    <Content Include="Resources\vs-entwine-configuration.png" />
     <Content Include="Resources\vs-entwine-menu.png" />
     <Content Include="Resources\vs-entwine-options.png" />
     <Content Include="Resources\vs-entwine-suggestion.png">
