@@ -6,8 +6,8 @@ services:
     container_name: ollama
     ports:
       - "11434:11434"
-    command: >
-      /bin/sh -c "ollama pull qwen2.5-coder:7b && ollama serve"
+    environment:
+      - OLLAMA_ORIGINS=["*"]
     restart: unless-stopped
 
   nginx:
@@ -16,7 +16,7 @@ services:
     depends_on:
       - ollama
     ports:
-      - "80:80"
+      - "11450:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     restart: unless-stopped

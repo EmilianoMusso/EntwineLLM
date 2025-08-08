@@ -8,6 +8,7 @@ namespace EntwineLlm.Servers.Abstractions
     {
         public string Name { get; } = name;
         public string BaseUrl { get; set; } = baseUri;
+        public string BearerToken { get; set; } = "";
         public TimeSpan RequestTimeOut { get; set; } = new TimeSpan(0, 10, 0);
 
         public abstract Task<string[]> GetModelListAsync();

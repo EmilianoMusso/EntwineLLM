@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace EntwineLlm.Servers
@@ -15,6 +16,10 @@ namespace EntwineLlm.Servers
             {
                 List<string> modelList = [];
                 using var client = new HttpClient();
+                if (!string.IsNullOrEmpty(BearerToken))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", BearerToken);
+                }
                 client.Timeout = RequestTimeOut;
 
                 var response = await client.GetAsync($"{BaseUrl}/api/tags");
@@ -38,6 +43,10 @@ namespace EntwineLlm.Servers
         public override async Task<string> GetChatCompletionAsync(StringContent content)
         {
             using var client = new HttpClient();
+            if (!string.IsNullOrEmpty(BearerToken))
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", BearerToken);
+            }
             client.Timeout = RequestTimeOut;
 
             var response = await client.PostAsync($"{BaseUrl}/api/chat", content);
