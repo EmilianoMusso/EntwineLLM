@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="EntwineLlm.77601dfd-d66f-405b-b3c4-c2e05497a5ca" Version="1.12" Language="en-US" Publisher="Emiliano Musso" />
+        <Identity Id="EntwineLlm.77601dfd-d66f-405b-b3c4-c2e05497a5ca" Version="1.13" Language="en-US" Publisher="Emiliano Musso" />
         <DisplayName>EntwineLlm</DisplayName>
         <Description xml:space="preserve">LLM coding assistant extension for Visual Studio (code writing and review, refactor, unit tests generation, documentation)</Description>
         <License>LICENSE.txt</License>

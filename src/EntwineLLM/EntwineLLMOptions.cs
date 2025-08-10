@@ -50,6 +50,15 @@ namespace EntwineLlm.Models
         }
 
         [Category("Configuration")]
+        [DisplayName("Nginx bearer token")]
+        [Description("Sets the bearer token to authenticate through nginx")]
+        public string BearerToken
+        {
+            get => LlmServer?.BearerToken;
+            set => LlmServer.BearerToken = value;
+        }
+
+        [Category("Configuration")]
         [DisplayName("LLM response language")]
         [Description("Set the language in which the LLM must answer")]
         [TypeConverter(typeof(LanguageConverter))]

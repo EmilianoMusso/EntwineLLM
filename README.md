@@ -49,5 +49,16 @@ All the available functions can overwrite the originally selected code with the 
 #### How it works
 The prompts for this extension are designed to work with multiple programming languages, such as C#, Python, Java. Prompts have a strict set of rules: requests unrelated to coding are rejected. If the request involves refactoring code, it follows Clean Code principles, ensuring readability, maintainability, and performance, with no extra explanations or comments provided. For new code requests, the same principles apply, with the emphasis on modularity, testability, and high performance. All code is provided in raw format, following strict style guidelines (Allman-style braces, vertical slicing) with no comments or additional context.
 
+#### Authentication token support (since v1.13)
+Starting from version 1.13, EntwineLLM introduces an optional authentication token setting. This feature is intended for scenarios where the LLM is hosted on a machine that must restrict free access, typically by placing it behind a reverse proxy such as nginx. When the authentication token option is filled in the extension settings, EntwineLLM automatically includes an Authorization: Bearer _token_ header in all API requests sent to the LLM endpoint. If the token option is left empty, the header will not be sent, and the extension will behave exactly as in previous versions, preserving backward compatibility.
+
+To simplify the setup of a secured local Docker test environment, the project provides:
+* A docker-compose file
+* A sample nginx configuration
+
+These examples allow developers to quickly run an LLM behind a proxy that handles authentication, simulating production-like conditions in a controlled local environment. This feature offers eEnhanced security for multi-user environments, configurable authentication without impacting existing workflows, simple testing with ready-to-use Docker and nginx examples
+
+![image](./src/EntwineLLM/Resources/vs-entwine-token.png)
+
 #### Why Entwine?
 The name Entwine and its logo, resembling the helix of DNA, symbolize the union of two forces: the natural intelligence and skills of the developer, and the artificial intelligence provided by the LLM. Just as DNA represents the intricate intertwining of biological elements that form life, Entwine reflects the harmonious connection between human creativity and AI-driven assistance. This synergy allows developers to harness the power of LLMs, enhancing their coding process while retaining their unique problem-solving abilities, creating a seamless collaboration between human and machine.
