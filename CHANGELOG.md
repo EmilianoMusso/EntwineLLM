@@ -1,4 +1,9 @@
+### v1.13.0 Authentication token for LLM shared use
+---
+- I't now possibile to specify an authentication token for LLM using through nginx
+
 ### v1.12.0 Added LMStudio support
+---
 - It is now possibile to switch between Ollama and LMStudio
 - Minor refactoring
 
