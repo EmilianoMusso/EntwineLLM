@@ -11,7 +11,12 @@ namespace EntwineLlm.Models
     public class GeneralOptions : DialogPage
     {
         private static LlmServer currentServer;
-        public static LlmServer CurrentServer => currentServer ??= new OllamaServer();
+        public static LlmServer CurrentServer => currentServer ??= LlmServerConverter.GetDefaultServer();
+
+        public GeneralOptions()
+        {
+            LlmServer = CurrentServer;
+        }
 
         private LlmServer llmServer;
         [Category("Configuration")]
@@ -35,7 +40,7 @@ namespace EntwineLlm.Models
         [Description("Sets the base URL for local LLM")]
         public string LlmUrl
         {
-            get => LlmServer?.BaseUrl;
+            get => LlmServer.BaseUrl;
             set => LlmServer.BaseUrl = value;
         }
 
@@ -45,7 +50,7 @@ namespace EntwineLlm.Models
 
         public TimeSpan LlmRequestTimeOut
         {
-            get => LlmServer?.RequestTimeOut ?? new TimeSpan(0, 10, 0);
+            get => LlmServer.RequestTimeOut;
             set => LlmServer.RequestTimeOut = value;
         }
 
@@ -54,7 +59,7 @@ namespace EntwineLlm.Models
         [Description("Sets the bearer token to authenticate through nginx")]
         public string BearerToken
         {
-            get => LlmServer?.BearerToken;
+            get => LlmServer.BearerToken;
             set => LlmServer.BearerToken = value;
         }
 
