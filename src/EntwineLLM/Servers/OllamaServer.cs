@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace EntwineLlm.Servers
 {
-    public class OllamaServer() : LlmServer ("Ollama", "http://localhost:11434")
+    public class OllamaServer() : LlmServer (NAME, "http://localhost:11434")
     {
+        public const string NAME = "Ollama";
+
         public override async Task<string[]> GetModelListAsync()
         {
             try
